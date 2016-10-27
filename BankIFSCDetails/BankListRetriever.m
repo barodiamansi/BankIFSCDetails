@@ -6,4 +6,9 @@
 //  Copyright © 2016 Mansi Barodia. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BankListRetriever.h"
+
+@implementation BanksListRetriever
+
+
+@end

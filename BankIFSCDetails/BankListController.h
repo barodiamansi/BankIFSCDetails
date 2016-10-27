@@ -6,8 +6,8 @@
 //  Copyright © 2016 Mansi Barodia. All rights reserved.
 //
 
-#ifndef BankListController_h
-#define BankListController_h
+#import <UIKit/UIKit.h>
+#import "ServiceAPI.h"
 
-
-#endif /* BankListController_h */
+@interface BankListController : UITableViewController<ServiceAPIDelegate>
+@end

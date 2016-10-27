@@ -6,8 +6,8 @@
 //  Copyright © 2016 Mansi Barodia. All rights reserved.
 //
 
-#ifndef BankListRetriever_h
-#define BankListRetriever_h
+#import <Foundation/Foundation.h>
 
+@interface BanksListRetriever : NSObject<NSURLConnectionDelegate>
 
-#endif /* BankListRetriever_h */
+@end

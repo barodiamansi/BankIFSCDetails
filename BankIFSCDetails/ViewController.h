@@ -11,7 +11,6 @@
 @interface ViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIPickerView *optionsPicker;
-@property (strong, nonatomic) IBOutlet UILabel *appTitle;
 
 @end
 

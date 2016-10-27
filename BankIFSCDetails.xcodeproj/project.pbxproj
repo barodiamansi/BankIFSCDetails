@@ -31,6 +31,7 @@
 		758395C01DBDA9D4007BFCF7 /* DistrictList.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395BF1DBDA9D4007BFCF7 /* DistrictList.m */; };
 		758395C31DBDAA04007BFCF7 /* DistrictListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C21DBDAA04007BFCF7 /* DistrictListController.m */; };
 		758395C61DBDAA38007BFCF7 /* BankListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C51DBDAA38007BFCF7 /* BankListController.m */; };
+		758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C81DC02B04007BFCF7 /* ServiceAPI.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,8 @@
 		758395C21DBDAA04007BFCF7 /* DistrictListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistrictListController.m; sourceTree = "<group>"; };
 		758395C41DBDAA24007BFCF7 /* BankListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankListController.h; sourceTree = "<group>"; };
 		758395C51DBDAA38007BFCF7 /* BankListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankListController.m; sourceTree = "<group>"; };
+		758395C71DC02AEE007BFCF7 /* ServiceAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceAPI.h; sourceTree = "<group>"; };
+		758395C81DC02B04007BFCF7 /* ServiceAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceAPI.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +226,8 @@
 				758395B61DBDA8BD007BFCF7 /* BankListRetriever.m */,
 				758395B81DBDA8E7007BFCF7 /* DistrictListRetriever.h */,
 				758395B91DBDA8F2007BFCF7 /* DistrictListRetriever.m */,
+				758395C71DC02AEE007BFCF7 /* ServiceAPI.h */,
+				758395C81DC02B04007BFCF7 /* ServiceAPI.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				758395651DBD6B60007BFCF7 /* AppDelegate.m in Sources */,
 				7583959F1DBD8284007BFCF7 /* BankDetailsController.m in Sources */,
 				758395AB1DBD83A5007BFCF7 /* BankDetails.m in Sources */,
+				758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */,
 				7583959C1DBD8266007BFCF7 /* BranchListController.m in Sources */,
 				758395B11DBD83E6007BFCF7 /* BranchList.m in Sources */,
 				758395AE1DBD83C4007BFCF7 /* StateList.m in Sources */,

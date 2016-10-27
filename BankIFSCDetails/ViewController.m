@@ -7,14 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "BankListController.h"
 
 @interface ViewController ()
 
 // Holds the options by which the bank details should be searched.
 @property (strong, nonatomic) NSArray *optionsArray;
-
-// Title to be displayed on the app.
-@property (copy) NSString *appOptionsViewTitle;
 
 @end
 
@@ -29,10 +27,9 @@ const int NUM_ROWS_PICKER_COMPONENTS = 4;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    _optionsArray = @[@"Search by State", @"Search by Branch", @"Search by IFSC Code", @"Search by MICR Code"];
+    self.optionsArray = @[@"Search by Bank", @"Search by State", @"Search by IFSC Code", @"Search by MICR Code"];
     
-    _optionsPicker = [[UIPickerView alloc] init];
-    _appTitle.text = @"Bank Details - Select an option";
+    self.optionsPicker = [[UIPickerView alloc] init];
 }
 
 - (void)viewDidLoad {
@@ -57,6 +54,28 @@ const int NUM_ROWS_PICKER_COMPONENTS = 4;
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
    return [_optionsArray objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    switch (row) {
+        case 0:
+            [self.navigationController pushViewController:[[BankListController alloc] init] animated:YES];
+            break;
+        case 1:
+            NSLog(@"Search by state");
+            break;
+        case 2:
+            NSLog(@"Search by IFSC");
+            break;
+        case 3:
+            NSLog(@"Search by MICR");
+            break;
+        default:
+            NSLog(@"Default");
+            break;
+    }
+    
 }
 
 @end
