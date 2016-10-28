@@ -15,7 +15,7 @@
 
 @end
 
-@interface ServiceAPI : NSObject<NSURLSessionDelegate>
+@interface ServiceAPI : NSObject<NSURLSessionDataDelegate>
 - (void)httpServiceRequest:(NSMutableURLRequest *)serviceRequest;
 @property (nonatomic, weak) id <ServiceAPIDelegate> delegate;
 @end
