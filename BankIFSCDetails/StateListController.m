@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "StateListController.h"
 #import "StatesListObject.h"
+#import "DistrictListController.h"
 
 @interface StateListController()
 
@@ -73,17 +74,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    DistrictListController *districtListController = [[DistrictListController alloc] initWithState:[self.statesList objectAtIndex:[indexPath row]]];
+    [self.navigationController pushViewController:districtListController animated:YES];
 }
-
-- (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {
-    NSError *jsonParseError = nil;
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&jsonParseError];
-    
-    NSArray *responseValues = [response allValues];
-    self.statesList = responseValues[1];
-    [self.tableView reloadData];
-}
-
 
 
 @end

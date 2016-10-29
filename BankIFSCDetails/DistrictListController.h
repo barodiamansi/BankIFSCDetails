@@ -6,8 +6,11 @@
 //  Copyright © 2016 Mansi Barodia. All rights reserved.
 //
 
-#ifndef DistrictListController_h
-#define DistrictListController_h
+#import <UIKit/UIKit.h>
+#import "ServiceAPI.h"
 
+@interface DistrictListController : UITableViewController<ServiceAPIDelegate>
 
-#endif /* DistrictListController_h */
+- (id) initWithState:(NSString *)stateName;
+
+@end

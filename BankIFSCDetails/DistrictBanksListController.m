@@ -1,30 +1,31 @@
 //
-//  DistrictListController.m
+//  DistrictBanksListController.m
 //  BankIFSCDetails
 //
-//  Created by Mansi Barodia on 10/23/16.
+//  Created by Mansi Barodia on 10/28/16.
 //  Copyright © 2016 Mansi Barodia. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "DistrictListController.h"
 #import "DistrictBanksListController.h"
+#import "BankBranchListControllerTableViewController.h"
 
-@interface DistrictListController()
+@interface DistrictBanksListController()
 
-@property (nonatomic, copy) NSString *stateName;
-@property (nonatomic, strong) NSArray *districtList;
+@property (nonatomic, copy) NSString *districtName;
+@property (nonatomic, strong) NSArray *bankNamesList;
+@property (nonatomic, strong) NSArray *districtBanksList;
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
 
 @end
 
-@implementation DistrictListController
-
-- (id) initWithState:(NSString *)stateName {
+@implementation DistrictBanksListController
+- (id)initWithDistrict:(NSString *)districtName {
     self = [super init];
     
     if (self) {
-        self.stateName = stateName;
+        self.districtName = districtName;
+        self.districtBanksList = @[];
     }
     return self;
 }
@@ -32,10 +33,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
-    self.districtList = @[];
+    self.bankNamesList = @[];
     [self getDistrictList];
     
-    self.title = @"District List";
+    self.title = @"Banks List";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -43,12 +44,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.districtList count];
+    return [self.bankNamesList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellText = [self.districtList objectAtIndex:[indexPath row]];
+    NSString *cellText = [self.bankNamesList objectAtIndex:[indexPath row]];
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
     
     CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
@@ -57,7 +58,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *districtListCellId = @"districtList";
+    NSString *districtListCellId = @"bankNamesList";
     
     UITableViewCell *districtListCell = [tableView dequeueReusableCellWithIdentifier:districtListCellId];
     
@@ -69,14 +70,14 @@
         districtListCell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     }
     
-    districtListCell.textLabel.text = [self.districtList objectAtIndex:[indexPath row]];
+    districtListCell.textLabel.text = [self.bankNamesList objectAtIndex:[indexPath row]];
     
     return districtListCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DistrictBanksListController *districtBankListController = [[DistrictBanksListController alloc] initWithDistrict:[self.districtList objectAtIndex:[indexPath row]]];
-    [self.navigationController pushViewController:districtBankListController animated:YES];
+    BankBranchListControllerTableViewController *branchListController = [[BankBranchListControllerTableViewController alloc] initWithBank:[self.bankNamesList objectAtIndex:[indexPath row]] andBanksList:self.districtBanksList];
+    [self.navigationController pushViewController:branchListController animated:YES];
 }
 
 - (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {
@@ -84,17 +85,18 @@
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&jsonParseError];
     
     NSArray *responseValues = [response allValues];
-    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:[responseValues[1] valueForKey:@"DISTRICT"]];
+    self.districtBanksList = responseValues[1];
+    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:[self.districtBanksList valueForKey:@"BANK"]];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
-    self.districtList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
- 
+    self.bankNamesList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    
     [self.tableView reloadData];
 }
 
 
 - (void)getDistrictList {
-    NSString *serviceString = [@"https://api.techm.co.in/api/state/" stringByAppendingString:self.stateName];
+    NSString *serviceString = [@"https://api.techm.co.in/api/district/" stringByAppendingString:self.districtName];
     serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     NSURL *serviceURL = [NSURL URLWithString:serviceString];
@@ -103,5 +105,4 @@
     self.serviceAPI.delegate = self;
     [self.serviceAPI httpServiceRequest:serviceRequest];
 }
-
 @end
