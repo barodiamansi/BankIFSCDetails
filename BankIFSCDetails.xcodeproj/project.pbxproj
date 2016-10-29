@@ -15,16 +15,23 @@
 		758395701DBD6B60007BFCF7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7583956E1DBD6B60007BFCF7 /* LaunchScreen.storyboard */; };
 		7583957B1DBD6B61007BFCF7 /* BankIFSCDetailsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7583957A1DBD6B61007BFCF7 /* BankIFSCDetailsTests.m */; };
 		758395861DBD6B61007BFCF7 /* BankIFSCDetailsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395851DBD6B61007BFCF7 /* BankIFSCDetailsUITests.m */; };
-		758395991DBD823D007BFCF7 /* StateDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395981DBD823D007BFCF7 /* StateDetailsController.m */; };
-		7583959C1DBD8266007BFCF7 /* BranchDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7583959B1DBD8266007BFCF7 /* BranchDetailsController.m */; };
+		758395991DBD823D007BFCF7 /* StateListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395981DBD823D007BFCF7 /* StateListController.m */; };
+		7583959C1DBD8266007BFCF7 /* BranchListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7583959B1DBD8266007BFCF7 /* BranchListController.m */; };
 		7583959F1DBD8284007BFCF7 /* BankDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7583959E1DBD8284007BFCF7 /* BankDetailsController.m */; };
-		758395A21DBD82F7007BFCF7 /* StateDetailsRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395A11DBD82F7007BFCF7 /* StateDetailsRetriever.m */; };
-		758395A51DBD8348007BFCF7 /* BranchDetailsRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395A41DBD8348007BFCF7 /* BranchDetailsRetriever.m */; };
+		758395A21DBD82F7007BFCF7 /* StateListRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395A11DBD82F7007BFCF7 /* StateListRetriever.m */; };
+		758395A51DBD8348007BFCF7 /* BranchListRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395A41DBD8348007BFCF7 /* BranchListRetriever.m */; };
 		758395A81DBD8368007BFCF7 /* BankDetailsRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395A71DBD8368007BFCF7 /* BankDetailsRetriever.m */; };
 		758395AB1DBD83A5007BFCF7 /* BankDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395AA1DBD83A5007BFCF7 /* BankDetails.m */; };
-		758395AE1DBD83C4007BFCF7 /* StateDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395AD1DBD83C4007BFCF7 /* StateDetails.m */; };
-		758395B11DBD83E6007BFCF7 /* BranchDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395B01DBD83E6007BFCF7 /* BranchDetails.m */; };
-		758395B41DBD8466007BFCF7 /* BankCodeDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395B31DBD8466007BFCF7 /* BankCodeDetails.m */; };
+		758395AE1DBD83C4007BFCF7 /* StatesListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395AD1DBD83C4007BFCF7 /* StatesListObject.m */; };
+		758395B11DBD83E6007BFCF7 /* BranchList.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395B01DBD83E6007BFCF7 /* BranchList.m */; };
+		758395B41DBD8466007BFCF7 /* BankCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395B31DBD8466007BFCF7 /* BankCodes.m */; };
+		758395B71DBDA8BD007BFCF7 /* BankListRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395B61DBDA8BD007BFCF7 /* BankListRetriever.m */; };
+		758395BA1DBDA8F2007BFCF7 /* DistrictListRetriever.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395B91DBDA8F2007BFCF7 /* DistrictListRetriever.m */; };
+		758395BD1DBDA9AC007BFCF7 /* BankList.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395BC1DBDA9AC007BFCF7 /* BankList.m */; };
+		758395C01DBDA9D4007BFCF7 /* DistrictList.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395BF1DBDA9D4007BFCF7 /* DistrictList.m */; };
+		758395C31DBDAA04007BFCF7 /* DistrictListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C21DBDAA04007BFCF7 /* DistrictListController.m */; };
+		758395C61DBDAA38007BFCF7 /* BankListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C51DBDAA38007BFCF7 /* BankListController.m */; };
+		758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C81DC02B04007BFCF7 /* ServiceAPI.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,26 +68,40 @@
 		758395811DBD6B61007BFCF7 /* BankIFSCDetailsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BankIFSCDetailsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		758395851DBD6B61007BFCF7 /* BankIFSCDetailsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankIFSCDetailsUITests.m; sourceTree = "<group>"; };
 		758395871DBD6B61007BFCF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		758395971DBD8229007BFCF7 /* StateDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDetailsController.h; sourceTree = "<group>"; };
-		758395981DBD823D007BFCF7 /* StateDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateDetailsController.m; sourceTree = "<group>"; };
-		7583959A1DBD8258007BFCF7 /* BranchDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchDetailsController.h; sourceTree = "<group>"; };
-		7583959B1DBD8266007BFCF7 /* BranchDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetailsController.m; sourceTree = "<group>"; };
+		758395971DBD8229007BFCF7 /* StateListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateListController.h; sourceTree = "<group>"; };
+		758395981DBD823D007BFCF7 /* StateListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateListController.m; sourceTree = "<group>"; };
+		7583959A1DBD8258007BFCF7 /* BranchListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchListController.h; sourceTree = "<group>"; };
+		7583959B1DBD8266007BFCF7 /* BranchListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListController.m; sourceTree = "<group>"; };
 		7583959D1DBD8278007BFCF7 /* BankDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankDetailsController.h; sourceTree = "<group>"; };
 		7583959E1DBD8284007BFCF7 /* BankDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankDetailsController.m; sourceTree = "<group>"; };
-		758395A01DBD82EA007BFCF7 /* StateDetailsRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateDetailsRetriever.h; sourceTree = "<group>"; };
-		758395A11DBD82F7007BFCF7 /* StateDetailsRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateDetailsRetriever.m; sourceTree = "<group>"; };
-		758395A31DBD830E007BFCF7 /* BranchDetailsRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BranchDetailsRetriever.h; sourceTree = "<group>"; };
-		758395A41DBD8348007BFCF7 /* BranchDetailsRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetailsRetriever.m; sourceTree = "<group>"; };
+		758395A01DBD82EA007BFCF7 /* StateListRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateListRetriever.h; sourceTree = "<group>"; };
+		758395A11DBD82F7007BFCF7 /* StateListRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateListRetriever.m; sourceTree = "<group>"; };
+		758395A31DBD830E007BFCF7 /* BranchListRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BranchListRetriever.h; sourceTree = "<group>"; };
+		758395A41DBD8348007BFCF7 /* BranchListRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListRetriever.m; sourceTree = "<group>"; };
 		758395A61DBD835C007BFCF7 /* BankDetailsRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankDetailsRetriever.h; sourceTree = "<group>"; };
 		758395A71DBD8368007BFCF7 /* BankDetailsRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankDetailsRetriever.m; sourceTree = "<group>"; };
 		758395A91DBD8398007BFCF7 /* BankDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankDetails.h; sourceTree = "<group>"; };
 		758395AA1DBD83A5007BFCF7 /* BankDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankDetails.m; sourceTree = "<group>"; };
-		758395AC1DBD83B9007BFCF7 /* StateDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDetails.h; sourceTree = "<group>"; };
-		758395AD1DBD83C4007BFCF7 /* StateDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateDetails.m; sourceTree = "<group>"; };
-		758395AF1DBD83DB007BFCF7 /* BranchDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchDetails.h; sourceTree = "<group>"; };
-		758395B01DBD83E6007BFCF7 /* BranchDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetails.m; sourceTree = "<group>"; };
-		758395B21DBD845B007BFCF7 /* BankCodeDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCodeDetails.h; sourceTree = "<group>"; };
-		758395B31DBD8466007BFCF7 /* BankCodeDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCodeDetails.m; sourceTree = "<group>"; };
+		758395AC1DBD83B9007BFCF7 /* StatesListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatesListObject.h; sourceTree = "<group>"; };
+		758395AD1DBD83C4007BFCF7 /* StatesListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatesListObject.m; sourceTree = "<group>"; };
+		758395AF1DBD83DB007BFCF7 /* BranchList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchList.h; sourceTree = "<group>"; };
+		758395B01DBD83E6007BFCF7 /* BranchList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchList.m; sourceTree = "<group>"; };
+		758395B21DBD845B007BFCF7 /* BankCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCodes.h; sourceTree = "<group>"; };
+		758395B31DBD8466007BFCF7 /* BankCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankCodes.m; sourceTree = "<group>"; };
+		758395B51DBDA8B1007BFCF7 /* BankListRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankListRetriever.h; sourceTree = "<group>"; };
+		758395B61DBDA8BD007BFCF7 /* BankListRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankListRetriever.m; sourceTree = "<group>"; };
+		758395B81DBDA8E7007BFCF7 /* DistrictListRetriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictListRetriever.h; sourceTree = "<group>"; };
+		758395B91DBDA8F2007BFCF7 /* DistrictListRetriever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistrictListRetriever.m; sourceTree = "<group>"; };
+		758395BB1DBDA99B007BFCF7 /* BankList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankList.h; sourceTree = "<group>"; };
+		758395BC1DBDA9AC007BFCF7 /* BankList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankList.m; sourceTree = "<group>"; };
+		758395BE1DBDA9C9007BFCF7 /* DistrictList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictList.h; sourceTree = "<group>"; };
+		758395BF1DBDA9D4007BFCF7 /* DistrictList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistrictList.m; sourceTree = "<group>"; };
+		758395C11DBDA9F1007BFCF7 /* DistrictListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictListController.h; sourceTree = "<group>"; };
+		758395C21DBDAA04007BFCF7 /* DistrictListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistrictListController.m; sourceTree = "<group>"; };
+		758395C41DBDAA24007BFCF7 /* BankListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankListController.h; sourceTree = "<group>"; };
+		758395C51DBDAA38007BFCF7 /* BankListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankListController.m; sourceTree = "<group>"; };
+		758395C71DC02AEE007BFCF7 /* ServiceAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceAPI.h; sourceTree = "<group>"; };
+		758395C81DC02B04007BFCF7 /* ServiceAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceAPI.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,12 +199,16 @@
 			children = (
 				758395A91DBD8398007BFCF7 /* BankDetails.h */,
 				758395AA1DBD83A5007BFCF7 /* BankDetails.m */,
-				758395AC1DBD83B9007BFCF7 /* StateDetails.h */,
-				758395AD1DBD83C4007BFCF7 /* StateDetails.m */,
-				758395AF1DBD83DB007BFCF7 /* BranchDetails.h */,
-				758395B01DBD83E6007BFCF7 /* BranchDetails.m */,
-				758395B21DBD845B007BFCF7 /* BankCodeDetails.h */,
-				758395B31DBD8466007BFCF7 /* BankCodeDetails.m */,
+				758395AC1DBD83B9007BFCF7 /* StatesListObject.h */,
+				758395AD1DBD83C4007BFCF7 /* StatesListObject.m */,
+				758395AF1DBD83DB007BFCF7 /* BranchList.h */,
+				758395B01DBD83E6007BFCF7 /* BranchList.m */,
+				758395B21DBD845B007BFCF7 /* BankCodes.h */,
+				758395B31DBD8466007BFCF7 /* BankCodes.m */,
+				758395BB1DBDA99B007BFCF7 /* BankList.h */,
+				758395BC1DBDA9AC007BFCF7 /* BankList.m */,
+				758395BE1DBDA9C9007BFCF7 /* DistrictList.h */,
+				758395BF1DBDA9D4007BFCF7 /* DistrictList.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -191,12 +216,18 @@
 		758395951DBD81D2007BFCF7 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				758395A01DBD82EA007BFCF7 /* StateDetailsRetriever.h */,
-				758395A11DBD82F7007BFCF7 /* StateDetailsRetriever.m */,
-				758395A31DBD830E007BFCF7 /* BranchDetailsRetriever.h */,
-				758395A41DBD8348007BFCF7 /* BranchDetailsRetriever.m */,
+				758395A01DBD82EA007BFCF7 /* StateListRetriever.h */,
+				758395A11DBD82F7007BFCF7 /* StateListRetriever.m */,
+				758395A31DBD830E007BFCF7 /* BranchListRetriever.h */,
+				758395A41DBD8348007BFCF7 /* BranchListRetriever.m */,
 				758395A61DBD835C007BFCF7 /* BankDetailsRetriever.h */,
 				758395A71DBD8368007BFCF7 /* BankDetailsRetriever.m */,
+				758395B51DBDA8B1007BFCF7 /* BankListRetriever.h */,
+				758395B61DBDA8BD007BFCF7 /* BankListRetriever.m */,
+				758395B81DBDA8E7007BFCF7 /* DistrictListRetriever.h */,
+				758395B91DBDA8F2007BFCF7 /* DistrictListRetriever.m */,
+				758395C71DC02AEE007BFCF7 /* ServiceAPI.h */,
+				758395C81DC02B04007BFCF7 /* ServiceAPI.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -204,12 +235,16 @@
 		758395961DBD81E6007BFCF7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				758395971DBD8229007BFCF7 /* StateDetailsController.h */,
-				758395981DBD823D007BFCF7 /* StateDetailsController.m */,
-				7583959A1DBD8258007BFCF7 /* BranchDetailsController.h */,
-				7583959B1DBD8266007BFCF7 /* BranchDetailsController.m */,
+				758395971DBD8229007BFCF7 /* StateListController.h */,
+				758395981DBD823D007BFCF7 /* StateListController.m */,
+				7583959A1DBD8258007BFCF7 /* BranchListController.h */,
+				7583959B1DBD8266007BFCF7 /* BranchListController.m */,
 				7583959D1DBD8278007BFCF7 /* BankDetailsController.h */,
 				7583959E1DBD8284007BFCF7 /* BankDetailsController.m */,
+				758395C11DBDA9F1007BFCF7 /* DistrictListController.h */,
+				758395C21DBDAA04007BFCF7 /* DistrictListController.m */,
+				758395C41DBDAA24007BFCF7 /* BankListController.h */,
+				758395C51DBDAA38007BFCF7 /* BankListController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -348,18 +383,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				758395681DBD6B60007BFCF7 /* ViewController.m in Sources */,
+				758395BA1DBDA8F2007BFCF7 /* DistrictListRetriever.m in Sources */,
 				758395A81DBD8368007BFCF7 /* BankDetailsRetriever.m in Sources */,
 				758395651DBD6B60007BFCF7 /* AppDelegate.m in Sources */,
 				7583959F1DBD8284007BFCF7 /* BankDetailsController.m in Sources */,
 				758395AB1DBD83A5007BFCF7 /* BankDetails.m in Sources */,
-				7583959C1DBD8266007BFCF7 /* BranchDetailsController.m in Sources */,
-				758395B11DBD83E6007BFCF7 /* BranchDetails.m in Sources */,
-				758395AE1DBD83C4007BFCF7 /* StateDetails.m in Sources */,
-				758395991DBD823D007BFCF7 /* StateDetailsController.m in Sources */,
-				758395A21DBD82F7007BFCF7 /* StateDetailsRetriever.m in Sources */,
+				758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */,
+				7583959C1DBD8266007BFCF7 /* BranchListController.m in Sources */,
+				758395B11DBD83E6007BFCF7 /* BranchList.m in Sources */,
+				758395AE1DBD83C4007BFCF7 /* StatesListObject.m in Sources */,
+				758395991DBD823D007BFCF7 /* StateListController.m in Sources */,
+				758395A21DBD82F7007BFCF7 /* StateListRetriever.m in Sources */,
+				758395B71DBDA8BD007BFCF7 /* BankListRetriever.m in Sources */,
+				758395C01DBDA9D4007BFCF7 /* DistrictList.m in Sources */,
+				758395C61DBDAA38007BFCF7 /* BankListController.m in Sources */,
 				758395621DBD6B60007BFCF7 /* main.m in Sources */,
-				758395B41DBD8466007BFCF7 /* BankCodeDetails.m in Sources */,
-				758395A51DBD8348007BFCF7 /* BranchDetailsRetriever.m in Sources */,
+				758395BD1DBDA9AC007BFCF7 /* BankList.m in Sources */,
+				758395B41DBD8466007BFCF7 /* BankCodes.m in Sources */,
+				758395A51DBD8348007BFCF7 /* BranchListRetriever.m in Sources */,
+				758395C31DBDAA04007BFCF7 /* DistrictListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +633,7 @@
 				7583958C1DBD6B61007BFCF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7583958D1DBD6B61007BFCF7 /* Build configuration list for PBXNativeTarget "BankIFSCDetailsTests" */ = {
 			isa = XCConfigurationList;
@@ -599,6 +642,7 @@
 				7583958F1DBD6B61007BFCF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		758395901DBD6B61007BFCF7 /* Build configuration list for PBXNativeTarget "BankIFSCDetailsUITests" */ = {
 			isa = XCConfigurationList;
@@ -607,6 +651,7 @@
 				758395921DBD6B61007BFCF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

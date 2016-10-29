@@ -1,5 +1,5 @@
 //
-//  StateDetailsController.m
+//  DistrictListController.m
 //  BankIFSCDetails
 //
 //  Created by Mansi Barodia on 10/23/16.
