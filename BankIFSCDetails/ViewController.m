@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "BankListController.h"
+#import "StateListController.h"
 
 @interface ViewController ()
 
@@ -63,7 +64,7 @@ const int NUM_ROWS_PICKER_COMPONENTS = 4;
             [self.navigationController pushViewController:[[BankListController alloc] init] animated:YES];
             break;
         case 1:
-            NSLog(@"Search by state");
+            [self.navigationController pushViewController:[[StateListController alloc] init] animated:YES];
             break;
         case 2:
             NSLog(@"Search by IFSC");

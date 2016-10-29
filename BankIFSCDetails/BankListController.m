@@ -40,14 +40,39 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return ([self.banksList count] || 0);
+    return [self.banksList count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellText = [self.banksList objectAtIndex:[indexPath row]];
+    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+    
+    CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+
+    return labelSize.height + 20;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    cell.textLabel.text = [self.banksList objectAtIndex:[indexPath row]];
+    NSString *banksListCellId = @"banksList";
     
-    return cell;
+    UITableViewCell *banksListCell = [tableView dequeueReusableCellWithIdentifier:banksListCellId];
+    
+    if (!banksListCell) {
+        banksListCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:banksListCellId];
+        banksListCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        banksListCell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        banksListCell.textLabel.numberOfLines = 0;
+        banksListCell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    }
+    
+    banksListCell.textLabel.text = [self.banksList objectAtIndex:[indexPath row]];
+    
+    return banksListCell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 - (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {

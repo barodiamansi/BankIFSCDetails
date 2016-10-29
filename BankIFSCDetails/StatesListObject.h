@@ -1,5 +1,5 @@
 //
-//  StateDetails.m
+//  StatesListObject.h
 //  BankIFSCDetails
 //
 //  Created by Mansi Barodia on 10/23/16.
@@ -7,3 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
+@interface StatesListObject : NSObject
+
+@property(nonatomic, retain, readonly) NSArray *statesList;
+
+@end
