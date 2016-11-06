@@ -7,3 +7,101 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DistrictListController.h"
+#import "DistrictBanksListController.h"
+
+@interface DistrictListController()
+
+@property (nonatomic, copy) NSString *stateName;
+@property (nonatomic, strong) NSArray *districtList;
+@property (nonatomic, strong) ServiceAPI *serviceAPI;
+
+@end
+
+@implementation DistrictListController
+
+- (id) initWithState:(NSString *)stateName {
+    self = [super init];
+    
+    if (self) {
+        self.stateName = stateName;
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.serviceAPI = [[ServiceAPI alloc] init];
+    self.districtList = @[];
+    [self getDistrictList];
+    
+    self.title = @"District List";
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.districtList count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellText = [self.districtList objectAtIndex:[indexPath row]];
+    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+    
+    CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+    
+    return labelSize.height + 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *districtListCellId = @"districtList";
+    
+    UITableViewCell *districtListCell = [tableView dequeueReusableCellWithIdentifier:districtListCellId];
+    
+    if (!districtListCell) {
+        districtListCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:districtListCellId];
+        districtListCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        districtListCell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        districtListCell.textLabel.numberOfLines = 0;
+        districtListCell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    }
+    
+    districtListCell.textLabel.text = [self.districtList objectAtIndex:[indexPath row]];
+    
+    return districtListCell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DistrictBanksListController *districtBankListController = [[DistrictBanksListController alloc] initWithDistrict:[self.districtList objectAtIndex:[indexPath row]]];
+    [self.navigationController pushViewController:districtBankListController animated:YES];
+}
+
+- (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {
+    NSError *jsonParseError = nil;
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&jsonParseError];
+    
+    NSArray *responseValues = [response allValues];
+    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:[responseValues[1] valueForKey:@"DISTRICT"]];
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
+    self.districtList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+ 
+    [self.tableView reloadData];
+}
+
+
+- (void)getDistrictList {
+    NSString *serviceString = [@"https://api.techm.co.in/api/state/" stringByAppendingString:self.stateName];
+    serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSURL *serviceURL = [NSURL URLWithString:serviceString];
+    NSMutableURLRequest *serviceRequest = [NSMutableURLRequest requestWithURL:serviceURL];
+    [serviceRequest setHTTPMethod:@"GET"];
+    self.serviceAPI.delegate = self;
+    [self.serviceAPI httpServiceRequest:serviceRequest];
+}
+
+@end

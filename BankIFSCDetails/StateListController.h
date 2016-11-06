@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ServiceAPI.h"
 
-@interface StateListController : UITableViewController<ServiceAPIDelegate>
+@interface StateListController : UITableViewController
 @end
 
