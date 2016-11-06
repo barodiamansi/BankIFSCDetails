@@ -7,12 +7,15 @@
 //
 
 #import "BankBranchListControllerTableViewController.h"
+#import "BranchDetailsTableViewCell.h"
+#import "BranchDetails.h"
 
 @interface BankBranchListControllerTableViewController ()
 @property (nonatomic, copy) NSString *bankName;
 @property (nonatomic, strong) NSArray *branchList;
 @property (nonatomic, strong) NSArray *districtBanksList;
-@property (nonatomic, strong) ServiceAPI *serviceAPI;
+@property (nonatomic, strong) NSMutableArray *expandedCells;
+@property (nonatomic, strong) NSMutableArray *branchDetails;
 @end
 
 @implementation BankBranchListControllerTableViewController
@@ -23,21 +26,32 @@
     if (self) {
         self.bankName = bankName;
         self.districtBanksList = banksList;
+        self.expandedCells = [[NSMutableArray alloc] init];
+        self.branchDetails = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.serviceAPI = [[ServiceAPI alloc] init];
-    self.branchList = @[];
-   // [self getDistrictList];
-    
-    NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"SELF.bank contains %@", self.bankName];
+    NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"self.BANK contains %@", self.bankName];
     self.districtBanksList = [self.districtBanksList filteredArrayUsingPredicate:bPredicate];
-    NSLog(@"HERE %@",self.districtBanksList);
     
-    self.title = @"Branch List";
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
+    self.branchList = [[self.districtBanksList valueForKey:@"BRANCH"] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    
+    for (NSDictionary *branch in self.districtBanksList) {
+        BranchDetails *branchDetails = [[BranchDetails alloc] init];
+        branchDetails.branchName = [branch valueForKey:@"BRANCH"];
+        branchDetails.addressDetails = [branch valueForKey:@"ADDRESS"];
+        branchDetails.contactDetails = [branch valueForKey:@"CONTACT"];
+        branchDetails.IFSCCode = [branch valueForKey:@"IFSC"];
+        branchDetails.MICRCode = [branch valueForKey:@"MICR CODE"];
+        
+        [self.branchDetails addObject:branchDetails];
+    }
+    
+    self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details List"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -55,54 +69,59 @@
     
     CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
     
-    return labelSize.height + 20;
+    CGFloat cellHeight = labelSize.height + 20;
+    return [self.expandedCells containsObject:indexPath] ? cellHeight * 5 : cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *districtListCellId = @"banksList";
+    NSString *branchListCellId = @"branchList";
     
-    UITableViewCell *districtListCell = [tableView dequeueReusableCellWithIdentifier:districtListCellId];
+    BranchDetailsTableViewCell *branchListCell = [tableView dequeueReusableCellWithIdentifier:branchListCellId];
     
-    if (!districtListCell) {
-        districtListCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:districtListCellId];
-        districtListCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        districtListCell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        districtListCell.textLabel.numberOfLines = 0;
-        districtListCell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    if (!branchListCell) {
+        [tableView registerNib:[UINib nibWithNibName:@"BranchDetailsTableViewCell" bundle:nil] forCellReuseIdentifier:branchListCellId];
+        branchListCell = [tableView dequeueReusableCellWithIdentifier:branchListCellId];
     }
     
-    districtListCell.textLabel.text = [self.branchList objectAtIndex:[indexPath row]];
+    return branchListCell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(BranchDetailsTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    return districtListCell;
+    [self setUpBranchName:cell onRow:[indexPath row]];
+    [self setUpBranchDetails:cell onRow:[indexPath row]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.expandedCells containsObject:indexPath]) {
+        [self.expandedCells removeObject:indexPath];
+    }
+    else {
+        [self.expandedCells addObject:indexPath];
+    }
     
+    [tableView beginUpdates];
+    [tableView endUpdates];
 }
 
-- (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {
-    NSError *jsonParseError = nil;
-    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&jsonParseError];
-    
-    NSArray *responseValues = [response allValues];
-    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:[responseValues[1] valueForKey:@"BRANCH"]];
-    
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
-    self.branchList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [self.tableView reloadData];
+- (void)setUpBranchName:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
+    cell.branchName.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.branchName.numberOfLines = 0;
+    cell.branchName.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    cell.branchName.text = ((BranchDetails *)[self.branchDetails objectAtIndex:row]).branchName;
 }
 
-
-- (void)getDistrictList {
-    NSString *serviceString = [@"https://api.techm.co.in/api/listbranches/" stringByAppendingString:self.bankName];
-    serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+- (void)setUpBranchDetails:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
+    BranchDetails *branchDetails = (BranchDetails *)[self.branchDetails objectAtIndex:row];
     
-    NSURL *serviceURL = [NSURL URLWithString:serviceString];
-    NSMutableURLRequest *serviceRequest = [NSMutableURLRequest requestWithURL:serviceURL];
-    [serviceRequest setHTTPMethod:@"GET"];
-    self.serviceAPI.delegate = self;
-    [self.serviceAPI httpServiceRequest:serviceRequest];
+    cell.addressDetails.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.addressDetails.numberOfLines = 0;
+    cell.addressDetails.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    cell.addressDetails.text = branchDetails.addressDetails;
+    
+    cell.contactDetails.text = branchDetails.contactDetails;
+    cell.IFSCCode.text = branchDetails.IFSCCode;
+    cell.MICRCode.text = branchDetails.MICRCode;
 }
-
 @end

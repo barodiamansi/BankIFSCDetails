@@ -16,7 +16,6 @@
 @property (nonatomic, strong) NSArray *bankNamesList;
 @property (nonatomic, strong) NSArray *districtBanksList;
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
-
 @end
 
 @implementation DistrictBanksListController
@@ -58,26 +57,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *districtListCellId = @"bankNamesList";
+    NSString *banksListCellId = @"bankNamesList";
     
-    UITableViewCell *districtListCell = [tableView dequeueReusableCellWithIdentifier:districtListCellId];
+    UITableViewCell *banksListCell = [tableView dequeueReusableCellWithIdentifier:banksListCellId];
     
-    if (!districtListCell) {
-        districtListCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:districtListCellId];
-        districtListCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        districtListCell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        districtListCell.textLabel.numberOfLines = 0;
-        districtListCell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    if (!banksListCell) {
+        banksListCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:banksListCellId];
+        banksListCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        banksListCell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        banksListCell.textLabel.numberOfLines = 0;
+        banksListCell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     }
     
-    districtListCell.textLabel.text = [self.bankNamesList objectAtIndex:[indexPath row]];
+    banksListCell.textLabel.text = [self.bankNamesList objectAtIndex:[indexPath row]];
     
-    return districtListCell;
+    return banksListCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BankBranchListControllerTableViewController *branchListController = [[BankBranchListControllerTableViewController alloc] initWithBank:[self.bankNamesList objectAtIndex:[indexPath row]] andBanksList:self.districtBanksList];
-    [self.navigationController pushViewController:branchListController animated:YES];
+    BankBranchListControllerTableViewController *branchDetails = [[BankBranchListControllerTableViewController alloc] initWithBank:[self.bankNamesList objectAtIndex:[indexPath row]] andBanksList:self.districtBanksList];
+    [self.navigationController pushViewController:branchDetails animated:YES];
 }
 
 - (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {
@@ -104,5 +103,11 @@
     [serviceRequest setHTTPMethod:@"GET"];
     self.serviceAPI.delegate = self;
     [self.serviceAPI httpServiceRequest:serviceRequest];
+}
+
+- (void)navigateBack {
+    [self.view.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        //self.view.window.rootViewController = nil;
+    self.view.window.hidden = YES;
 }
 @end

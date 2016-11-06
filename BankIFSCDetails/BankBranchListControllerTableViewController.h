@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ServiceAPI.h"
 
-@interface BankBranchListControllerTableViewController : UITableViewController<ServiceAPIDelegate>
+@interface BankBranchListControllerTableViewController : UITableViewController
 - (id) initWithBank:(NSString *)bankName andBanksList:(NSArray *)banksList;
 @end
