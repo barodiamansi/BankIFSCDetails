@@ -14,4 +14,6 @@
 @property(nonatomic, copy) NSString *contactDetails;
 @property(nonatomic, copy) NSString *IFSCCode;
 @property(nonatomic, copy) NSString *MICRCode;
+@property(nonatomic, copy) NSString *stateName;
+@property(nonatomic, copy) NSString *districtName;
 @end
