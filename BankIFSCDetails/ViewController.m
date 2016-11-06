@@ -39,12 +39,6 @@ const int NUM_ROWS_PICKER_COMPONENTS = 4;
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return NUM_PICKER_COMPONENTS;
 }

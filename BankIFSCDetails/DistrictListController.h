@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ServiceAPI.h"
 
+// Displays a list of district within a particular state.
 @interface DistrictListController : UITableViewController<ServiceAPIDelegate>
 
-- (id) initWithState:(NSString *)stateName;
+// @param stateName - String used in the request for district names list. Cannot be nil.
+- (id)initWithState:(NSString *)stateName;
 
 @end

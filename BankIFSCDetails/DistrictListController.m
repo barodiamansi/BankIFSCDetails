@@ -12,8 +12,11 @@
 
 @interface DistrictListController()
 
+// Used in the request for district names list.
 @property (nonatomic, copy) NSString *stateName;
+// Stores the list of district names received from the response.
 @property (nonatomic, strong) NSArray *districtList;
+// Used to make service calls.
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
 
 @end
@@ -33,8 +36,10 @@
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
     self.districtList = @[];
-    [self getDistrictList];
     
+    // Retrieve a list of district names based on the state name.
+    [self getDistrictList];
+
     self.title = @"District List";
 }
 
@@ -92,7 +97,7 @@
     [self.tableView reloadData];
 }
 
-
+// Makes a HTTP GET request to retrieve a list of district names based on the state.
 - (void)getDistrictList {
     NSString *serviceString = [@"https://api.techm.co.in/api/state/" stringByAppendingString:self.stateName];
     serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

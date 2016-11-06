@@ -33,7 +33,7 @@
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
     self.bankNamesList = @[];
-    [self getDistrictList];
+    [self getDistrictBanksList];
     
     self.title = @"Banks List";
 }
@@ -93,8 +93,8 @@
     [self.tableView reloadData];
 }
 
-
-- (void)getDistrictList {
+// Makes a HTTP GET request to retrieve a list of banks within a given district.
+- (void)getDistrictBanksList {
     NSString *serviceString = [@"https://api.techm.co.in/api/district/" stringByAppendingString:self.districtName];
     serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
@@ -105,9 +105,4 @@
     [self.serviceAPI httpServiceRequest:serviceRequest];
 }
 
-- (void)navigateBack {
-    [self.view.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-        //self.view.window.rootViewController = nil;
-    self.view.window.hidden = YES;
-}
 @end

@@ -78,6 +78,7 @@
     [self.tableView reloadData];
 }
 
+// Makes a HTTP GET request to retrieve a list of banks.
 - (void)getBanksList {
     NSString *serviceString = @"https://api.techm.co.in/api/listbanks";
     serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
