@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BankListController.h"
-#import "BanksStateListControllerTableViewController.h"
+#import "BranchListByBankTableViewController.h"
 
 @interface BankListController()
 
@@ -65,7 +65,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BanksStateListControllerTableViewController *stateListController = [[BanksStateListControllerTableViewController alloc] initWithBankName:[self.banksList objectAtIndex:[indexPath row]]];
+    BranchListByBankTableViewController *stateListController = [[BranchListByBankTableViewController alloc] initWithBankName:[self.banksList objectAtIndex:[indexPath row]]];
     [self.navigationController pushViewController:stateListController animated:YES];
 }
 

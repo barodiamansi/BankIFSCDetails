@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSArray *statesList;
 // Used to make the service calls.
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
-
+@property (nonatomic, strong) UISearchController *searchController;
 @end
 
 @implementation StateListController
@@ -25,6 +25,15 @@
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
     self.statesList = [[[StatesListObject alloc] init] statesList];
+    
+    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    self.tableView.tableHeaderView = searchBar;
+    
+//    searchBar.delegate = self;
+//    
+//    self.searchController = [[UISearchController alloc]initWithSearchBar:searchBar contentsController:self];
+//    self.searchController.searchResultsDataSource = self;
+//    self.searchController.searchResultsDelegate = self;
     
     // Title of the view.
     self.title = @"States & Union Territories List";

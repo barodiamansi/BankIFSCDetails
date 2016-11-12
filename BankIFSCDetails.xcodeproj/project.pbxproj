@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75486B841DD41CA300EF5959 /* BranchListByBankTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */; };
 		758395621DBD6B60007BFCF7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395611DBD6B60007BFCF7 /* main.m */; };
 		758395651DBD6B60007BFCF7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395641DBD6B60007BFCF7 /* AppDelegate.m */; };
 		758395681DBD6B60007BFCF7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395671DBD6B60007BFCF7 /* ViewController.m */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		75486B821DD41CA300EF5959 /* BranchListByBankTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchListByBankTableViewController.h; sourceTree = "<group>"; };
+		75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListByBankTableViewController.m; sourceTree = "<group>"; };
 		7583955D1DBD6B60007BFCF7 /* BankIFSCDetails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankIFSCDetails.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		758395611DBD6B60007BFCF7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		758395631DBD6B60007BFCF7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				75F9B4831DCED609003991CA /* CodeSearchViewController.h */,
 				75F9B4841DCED609003991CA /* CodeSearchViewController.m */,
 				75F9B4851DCED609003991CA /* CodeSearchViewController.xib */,
+				75486B821DD41CA300EF5959 /* BranchListByBankTableViewController.h */,
+				75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -373,6 +378,7 @@
 				758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */,
 				758395AE1DBD83C4007BFCF7 /* StatesListObject.m in Sources */,
 				758395991DBD823D007BFCF7 /* StateListController.m in Sources */,
+				75486B841DD41CA300EF5959 /* BranchListByBankTableViewController.m in Sources */,
 				758395C61DBDAA38007BFCF7 /* BankListController.m in Sources */,
 				758395621DBD6B60007BFCF7 /* main.m in Sources */,
 				75F9B4801DCECAFC003991CA /* StateDistrictTableViewController.m in Sources */,
