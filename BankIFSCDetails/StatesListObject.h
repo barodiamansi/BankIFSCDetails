@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+// Class whose object contains list of states.
 @interface StatesListObject : NSObject
 
+// Array storing list of states and territories.
 @property(nonatomic, retain, readonly) NSArray *statesList;
 
 @end

@@ -15,8 +15,7 @@
 @implementation StatesListObject
 
 - (NSArray *)statesList {
-    return self.statesList = @[@"Andaman and Nicobar Islands",
-                               @"Andhra Pradesh",
+    return self.statesList = @[@"Andhra Pradesh",
                                @"Arunachal Pradesh",
                                @"Assam",
                                @"Bihar",

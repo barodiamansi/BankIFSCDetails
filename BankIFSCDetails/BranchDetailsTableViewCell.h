@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+// Cell to display branch details.
 @interface BranchDetailsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *branchName;
 @property (weak, nonatomic) IBOutlet UILabel *address;

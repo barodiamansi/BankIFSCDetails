@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ServiceAPI.h"
 
+// Displays a list of states.
 @interface StateListController : UITableViewController
 @end
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BankListController.h"
-#import "StateListController.h"
+#import "BranchListByBankTableViewController.h"
 
 @interface BankListController()
 
@@ -65,7 +65,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    StateListController *stateListController = [[StateListController alloc] init];
+    BranchListByBankTableViewController *stateListController = [[BranchListByBankTableViewController alloc] initWithBankName:[self.banksList objectAtIndex:[indexPath row]]];
     [self.navigationController pushViewController:stateListController animated:YES];
 }
 
@@ -78,6 +78,7 @@
     [self.tableView reloadData];
 }
 
+// Makes a HTTP GET request to retrieve a list of banks.
 - (void)getBanksList {
     NSString *serviceString = @"https://api.techm.co.in/api/listbanks";
     serviceString = [serviceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
