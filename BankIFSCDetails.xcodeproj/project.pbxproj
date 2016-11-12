@@ -26,8 +26,6 @@
 		75B7D1C91DC4601300DCB806 /* DistrictBanksListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B7D1C81DC4601300DCB806 /* DistrictBanksListController.m */; };
 		75B7D1CC1DC4620E00DCB806 /* BankBranchListControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B7D1CB1DC4620E00DCB806 /* BankBranchListControllerTableViewController.m */; };
 		75F9B47A1DCEAEB8003991CA /* BranchDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B4791DCEAEB8003991CA /* BranchDetails.m */; };
-		75F9B47D1DCEC651003991CA /* BanksStateListControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B47C1DCEC651003991CA /* BanksStateListControllerTableViewController.m */; };
-		75F9B4801DCECAFC003991CA /* StateDistrictTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B47F1DCECAFC003991CA /* StateDistrictTableViewController.m */; };
 		75F9B4861DCED609003991CA /* CodeSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B4841DCED609003991CA /* CodeSearchViewController.m */; };
 		75F9B4871DCED609003991CA /* CodeSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F9B4851DCED609003991CA /* CodeSearchViewController.xib */; };
 /* End PBXBuildFile section */
@@ -87,10 +85,6 @@
 		75B7D1CB1DC4620E00DCB806 /* BankBranchListControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankBranchListControllerTableViewController.m; sourceTree = "<group>"; };
 		75F9B4781DCEAEB8003991CA /* BranchDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchDetails.h; sourceTree = "<group>"; };
 		75F9B4791DCEAEB8003991CA /* BranchDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetails.m; sourceTree = "<group>"; };
-		75F9B47B1DCEC651003991CA /* BanksStateListControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BanksStateListControllerTableViewController.h; sourceTree = "<group>"; };
-		75F9B47C1DCEC651003991CA /* BanksStateListControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BanksStateListControllerTableViewController.m; sourceTree = "<group>"; };
-		75F9B47E1DCECAFC003991CA /* StateDistrictTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDistrictTableViewController.h; sourceTree = "<group>"; };
-		75F9B47F1DCECAFC003991CA /* StateDistrictTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateDistrictTableViewController.m; sourceTree = "<group>"; };
 		75F9B4831DCED609003991CA /* CodeSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSearchViewController.h; sourceTree = "<group>"; };
 		75F9B4841DCED609003991CA /* CodeSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeSearchViewController.m; sourceTree = "<group>"; };
 		75F9B4851DCED609003991CA /* CodeSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodeSearchViewController.xib; sourceTree = "<group>"; };
@@ -222,10 +216,6 @@
 				75B7D1C81DC4601300DCB806 /* DistrictBanksListController.m */,
 				75B7D1CA1DC4620E00DCB806 /* BankBranchListControllerTableViewController.h */,
 				75B7D1CB1DC4620E00DCB806 /* BankBranchListControllerTableViewController.m */,
-				75F9B47B1DCEC651003991CA /* BanksStateListControllerTableViewController.h */,
-				75F9B47C1DCEC651003991CA /* BanksStateListControllerTableViewController.m */,
-				75F9B47E1DCECAFC003991CA /* StateDistrictTableViewController.h */,
-				75F9B47F1DCECAFC003991CA /* StateDistrictTableViewController.m */,
 				75F9B4831DCED609003991CA /* CodeSearchViewController.h */,
 				75F9B4841DCED609003991CA /* CodeSearchViewController.m */,
 				75F9B4851DCED609003991CA /* CodeSearchViewController.xib */,
@@ -372,7 +362,6 @@
 			files = (
 				758395681DBD6B60007BFCF7 /* ViewController.m in Sources */,
 				75F9B4861DCED609003991CA /* CodeSearchViewController.m in Sources */,
-				75F9B47D1DCEC651003991CA /* BanksStateListControllerTableViewController.m in Sources */,
 				758395651DBD6B60007BFCF7 /* AppDelegate.m in Sources */,
 				75F9B47A1DCEAEB8003991CA /* BranchDetails.m in Sources */,
 				758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */,
@@ -381,7 +370,6 @@
 				75486B841DD41CA300EF5959 /* BranchListByBankTableViewController.m in Sources */,
 				758395C61DBDAA38007BFCF7 /* BankListController.m in Sources */,
 				758395621DBD6B60007BFCF7 /* main.m in Sources */,
-				75F9B4801DCECAFC003991CA /* StateDistrictTableViewController.m in Sources */,
 				75AC829B1DCC351D00DFC65D /* BranchDetailsTableViewCell.m in Sources */,
 				75B7D1C91DC4601300DCB806 /* DistrictBanksListController.m in Sources */,
 				758395C31DBDAA04007BFCF7 /* DistrictListController.m in Sources */,
