@@ -10,6 +10,7 @@
 #import "StateListController.h"
 #import "StatesListObject.h"
 #import "DistrictListController.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface StateListController()
 // Stores the list of states and union territories.
@@ -17,9 +18,15 @@
 // Used to make the service calls.
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
 @property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation StateListController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,14 +36,13 @@
     UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
     self.tableView.tableHeaderView = searchBar;
     
-//    searchBar.delegate = self;
-//    
-//    self.searchController = [[UISearchController alloc]initWithSearchBar:searchBar contentsController:self];
-//    self.searchController.searchResultsDataSource = self;
-//    self.searchController.searchResultsDelegate = self;
-    
     // Title of the view.
     self.title = @"States & Union Territories List";
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

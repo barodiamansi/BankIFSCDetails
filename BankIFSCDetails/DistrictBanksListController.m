@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DistrictBanksListController.h"
 #import "BankBranchListControllerTableViewController.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface DistrictBanksListController()
 
@@ -16,6 +17,7 @@
 @property (nonatomic, strong) NSArray *bankNamesList;
 @property (nonatomic, strong) NSArray *districtBanksList;
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation DistrictBanksListController
@@ -25,6 +27,8 @@
     if (self) {
         self.districtName = districtName;
         self.districtBanksList = @[];
+        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
     return self;
 }
@@ -36,6 +40,7 @@
     [self getDistrictBanksList];
     
     self.title = @"Banks List";
+    [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -89,8 +94,10 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     self.bankNamesList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [self.tableView reloadData];
+    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 // Makes a HTTP GET request to retrieve a list of banks within a given district.

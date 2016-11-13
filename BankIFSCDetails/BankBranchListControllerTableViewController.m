@@ -9,6 +9,7 @@
 #import "BankBranchListControllerTableViewController.h"
 #import "BranchDetailsTableViewCell.h"
 #import "BranchDetails.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface BankBranchListControllerTableViewController ()
 @property (nonatomic, copy) NSString *bankName;
@@ -16,6 +17,7 @@
 @property (nonatomic, strong) NSArray *districtBanksList;
 @property (nonatomic, strong) NSMutableArray *expandedCells;
 @property (nonatomic, strong) NSMutableArray *branchDetails;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation BankBranchListControllerTableViewController
@@ -28,8 +30,15 @@
         self.districtBanksList = banksList;
         self.expandedCells = [[NSMutableArray alloc] init];
         self.branchDetails = [[NSMutableArray alloc] init];
+        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
 }
 
 - (void)viewDidLoad {
@@ -52,6 +61,8 @@
     }
     
     self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details List"];
+    
+    [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

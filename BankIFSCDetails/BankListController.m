@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "BankListController.h"
 #import "BranchListByBankTableViewController.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface BankListController()
 
 @property (nonatomic, strong) NSArray *banksList;
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
-
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation BankListController
@@ -26,6 +27,11 @@
     [self getBanksList];
     
     self.title = @"Banks List";
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -75,7 +81,10 @@
     
     NSArray *responseValues = [response allValues];
     self.banksList = responseValues[1];
-    [self.tableView reloadData];
+    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 // Makes a HTTP GET request to retrieve a list of banks.

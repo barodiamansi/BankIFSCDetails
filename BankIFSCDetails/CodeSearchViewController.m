@@ -9,6 +9,7 @@
 #import "CodeSearchViewController.h"
 #import "BranchDetailsTableViewCell.h"
 #import "BranchDetails.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface CodeSearchViewController ()
 @property (nonatomic, copy) NSString *codeName;
@@ -19,6 +20,7 @@
 @property (nonatomic, copy) NSString *code;
 @property (nonatomic, strong) NSMutableArray *branchDetails;
 @property (nonatomic) BOOL expandCell;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation CodeSearchViewController
@@ -28,6 +30,8 @@
     
     if (self) {
         self.codeName = codeName;
+        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
     
     return self;
@@ -104,6 +108,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.code = textField.text;
+    [self.activityIndicator showActivityIndicatorForView:self.view];
     [self getBranchDetailsByCode];
 }
 
@@ -126,7 +131,10 @@
     
     [self.branchDetails addObject:details];
     [self.branchDetailsTableView setHidden:NO];
-    [self.branchDetailsTableView reloadData];
+    [self.activityIndicator hideActivityIndicatorForView:self.view];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.branchDetailsTableView reloadData];
+    });
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
