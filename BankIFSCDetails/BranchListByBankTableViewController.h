@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ServiceAPI.h"
 
-@interface BranchListByBankTableViewController : UITableViewController<ServiceAPIDelegate>
+@interface BranchListByBankTableViewController : UITableViewController<ServiceAPIDelegate, UISearchBarDelegate>
 - (id) initWithBankName:(NSString *)bankName;
 @end
