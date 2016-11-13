@@ -15,9 +15,13 @@
 
 @property (nonatomic, copy) NSString *districtName;
 @property (nonatomic, strong) NSArray *bankNamesList;
+@property (nonatomic, strong) NSArray *bankNamesListCopy;
 @property (nonatomic, strong) NSArray *districtBanksList;
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, copy) NSString *searchText;
+@property (nonatomic, strong) NSTimer *delayTimer;
 @end
 
 @implementation DistrictBanksListController
@@ -37,6 +41,11 @@
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
     self.bankNamesList = @[];
+    
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    self.tableView.tableHeaderView = self.searchBar;
+    self.searchBar.delegate = self;
+    
     [self getDistrictBanksList];
     
     self.title = @"Banks List";
@@ -94,6 +103,7 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     self.bankNamesList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    self.bankNamesListCopy = [self.bankNamesList copy];
     [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
@@ -110,6 +120,46 @@
     [serviceRequest setHTTPMethod:@"GET"];
     self.serviceAPI.delegate = self;
     [self.serviceAPI httpServiceRequest:serviceRequest];
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.searchText = searchBar.text;
+    
+    if ([self.searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        [searchBar resignFirstResponder];
+        [self searchResultsUpdate];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self.delayTimer invalidate];
+    
+    if ([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        self.searchText = searchText;
+        self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(searchResultsUpdate) userInfo:searchText repeats:NO];
+    }
+    else if (([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) && ([self.tableView numberOfRowsInSection:0] != [self.bankNamesListCopy count])){
+        self.bankNamesList = self.bankNamesListCopy;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchResultsUpdate {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", self.searchText];
+    NSArray *filteredArray = [self.bankNamesList filteredArrayUsingPredicate:predicate];
+    if ([filteredArray count] > 0) {
+        self.bankNamesList = filteredArray;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    if ([self.tableView numberOfRowsInSection:0] != [self.bankNamesListCopy count]) {
+        self.bankNamesList = self.bankNamesListCopy;
+        [self.tableView reloadData];
+    }
 }
 
 @end

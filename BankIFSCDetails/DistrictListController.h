@@ -10,7 +10,7 @@
 #import "ServiceAPI.h"
 
 // Displays a list of district within a particular state.
-@interface DistrictListController : UITableViewController<ServiceAPIDelegate>
+@interface DistrictListController : UITableViewController<ServiceAPIDelegate, UISearchBarDelegate>
 
 // @param stateName - String used in the request for district names list. Cannot be nil.
 - (id)initWithState:(NSString *)stateName;
