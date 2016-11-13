@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DistrictListController.h"
 #import "DistrictBanksListController.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface DistrictListController()
 
@@ -18,7 +19,7 @@
 @property (nonatomic, strong) NSArray *districtList;
 // Used to make service calls.
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
-
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation DistrictListController
@@ -28,6 +29,8 @@
     
     if (self) {
         self.stateName = stateName;
+        self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
     return self;
 }
@@ -41,6 +44,7 @@
     [self getDistrictList];
 
     self.title = @"District List";
+    [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -94,7 +98,11 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     self.districtList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
  
-    [self.tableView reloadData];
+    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 // Makes a HTTP GET request to retrieve a list of district names based on the state.

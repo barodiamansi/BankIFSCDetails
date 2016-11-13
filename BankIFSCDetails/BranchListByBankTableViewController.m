@@ -9,6 +9,7 @@
 #import "BranchListByBankTableViewController.h"
 #import "BranchDetails.h"
 #import "BranchDetailsTableViewCell.h"
+#import "UIActivityIndicatorView+Additions.h"
 
 @interface BranchListByBankTableViewController ()
 @property(nonatomic, strong) NSMutableArray *branchList;
@@ -18,7 +19,6 @@
 @property (nonatomic, strong) BranchDetails *branchDetails;
 @property (nonatomic) BOOL getBranchDetails;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) UIView *overlayView;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @end
 
@@ -34,6 +34,7 @@
         self.bankName = bankName;
         self.getBranchDetails = NO;
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
     
     return self;
@@ -41,18 +42,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    [self showActivityIndicator];
+    [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.serviceAPI = [[ServiceAPI alloc] init];
     [self getBranchList];
-    
     self.title = @"Branch List";
 }
 
@@ -100,7 +96,7 @@
         [self.tableView endUpdates];
     }
     else {
-        [self showActivityIndicator];
+        [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
         self.selectedIndexPath = indexPath;
         [self.expandedCells addObject:indexPath];
         [self getBranchDetailsForBranch:[self.branchList objectAtIndex:[indexPath row]]];
@@ -130,12 +126,14 @@
         [self.tableView reloadRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
         
-        [self hideActivityIndicator];
+        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     }
     else {
         self.branchList = [response allValues][1];
-        [self hideActivityIndicator];
-        [self.tableView reloadData];
+        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 }
 
@@ -180,18 +178,4 @@
     cell.MICRCode.text = self.branchDetails.MICRCode;
 }
 
-- (void)showActivityIndicator {
-    self.activityIndicator.center = self.overlayView.center;
-    [self.activityIndicator startAnimating];
-    [self.overlayView addSubview:self.activityIndicator];
-    [self.navigationController.view addSubview:self.overlayView];
-    [self.navigationController.view bringSubviewToFront:self.overlayView];
-    self.activityIndicator.hidesWhenStopped = YES;
-    self.activityIndicator.hidden = NO;
-}
-
-- (void)hideActivityIndicator {
-    [self.activityIndicator stopAnimating];
-    [self.overlayView removeFromSuperview];
-}
 @end

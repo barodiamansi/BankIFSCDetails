@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		75486B841DD41CA300EF5959 /* BranchListByBankTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */; };
+		75486B881DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 75486B871DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m */; };
 		758395621DBD6B60007BFCF7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395611DBD6B60007BFCF7 /* main.m */; };
 		758395651DBD6B60007BFCF7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395641DBD6B60007BFCF7 /* AppDelegate.m */; };
 		758395681DBD6B60007BFCF7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395671DBD6B60007BFCF7 /* ViewController.m */; };
@@ -50,6 +51,8 @@
 /* Begin PBXFileReference section */
 		75486B821DD41CA300EF5959 /* BranchListByBankTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchListByBankTableViewController.h; sourceTree = "<group>"; };
 		75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListByBankTableViewController.m; sourceTree = "<group>"; };
+		75486B861DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+Additions.h"; sourceTree = "<group>"; };
+		75486B871DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityIndicatorView+Additions.m"; sourceTree = "<group>"; };
 		7583955D1DBD6B60007BFCF7 /* BankIFSCDetails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankIFSCDetails.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		758395611DBD6B60007BFCF7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		758395631DBD6B60007BFCF7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +118,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75486B851DD7EC2D00EF5959 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				75486B861DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.h */,
+				75486B871DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		758395541DBD6B60007BFCF7 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +150,7 @@
 		7583955F1DBD6B60007BFCF7 /* BankIFSCDetails */ = {
 			isa = PBXGroup;
 			children = (
+				75486B851DD7EC2D00EF5959 /* Category */,
 				758395961DBD81E6007BFCF7 /* Controllers */,
 				758395951DBD81D2007BFCF7 /* Service */,
 				758395941DBD81CB007BFCF7 /* Models */,
@@ -362,6 +375,7 @@
 			files = (
 				758395681DBD6B60007BFCF7 /* ViewController.m in Sources */,
 				75F9B4861DCED609003991CA /* CodeSearchViewController.m in Sources */,
+				75486B881DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m in Sources */,
 				758395651DBD6B60007BFCF7 /* AppDelegate.m in Sources */,
 				75F9B47A1DCEAEB8003991CA /* BranchDetails.m in Sources */,
 				758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */,
