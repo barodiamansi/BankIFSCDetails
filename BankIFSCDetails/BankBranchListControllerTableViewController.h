@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BankBranchListControllerTableViewController : UITableViewController
+@interface BankBranchListControllerTableViewController : UITableViewController<UISearchBarDelegate>
 - (id) initWithBank:(NSString *)bankName andBanksList:(NSArray *)banksList;
 @end

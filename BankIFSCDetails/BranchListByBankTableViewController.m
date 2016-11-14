@@ -13,6 +13,7 @@
 
 @interface BranchListByBankTableViewController ()
 @property(nonatomic, strong) NSMutableArray *branchList;
+@property(nonatomic, strong) NSMutableArray *branchListCopy;
 @property(nonatomic, strong) ServiceAPI *serviceAPI;
 @property(nonatomic, copy) NSString *bankName;
 @property (nonatomic, strong) NSMutableArray *expandedCells;
@@ -20,6 +21,9 @@
 @property (nonatomic) BOOL getBranchDetails;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, copy) NSString *searchText;
+@property (nonatomic, strong) NSTimer *delayTimer;
 @end
 
 @implementation BranchListByBankTableViewController
@@ -48,6 +52,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    self.tableView.tableHeaderView = self.searchBar;
+    self.searchBar.delegate = self;
     [self getBranchList];
     self.title = @"Branch List";
 }
@@ -84,6 +91,7 @@
         stateListCell = [tableView dequeueReusableCellWithIdentifier:stateListCellId];
     }
     
+    //[stateListCell layoutIfNeeded];
     return stateListCell;
 }
 
@@ -91,9 +99,9 @@
     if ([self.expandedCells containsObject:indexPath]) {
         [self.expandedCells removeObject:indexPath];
         
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
     else {
         [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
@@ -122,14 +130,15 @@
         self.branchDetails.IFSCCode = [branchDetails valueForKey:@"IFSC"];
         self.branchDetails.MICRCode = [branchDetails valueForKey:@"MICR CODE"];
         
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
         
         [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     }
     else {
         self.branchList = [response allValues][1];
+        self.branchListCopy = [self.branchList mutableCopy];
         [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -178,4 +187,46 @@
     cell.MICRCode.text = self.branchDetails.MICRCode;
 }
 
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.searchText = searchBar.text;
+    
+    if ([self.searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        [searchBar resignFirstResponder];
+        [self searchResultsUpdate];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self.delayTimer invalidate];
+    
+    if ([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        self.searchText = searchText;
+        self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(searchResultsUpdate) userInfo:searchText repeats:NO];
+    }
+    else if (([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) && ([self.tableView numberOfRowsInSection:0] != [self.branchListCopy count])){
+        self.branchList = self.branchListCopy;
+        [self.expandedCells removeAllObjects];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchResultsUpdate {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", self.searchText];
+    NSMutableArray *filteredArray = [[self.branchList filteredArrayUsingPredicate:predicate] mutableCopy];
+    if ([filteredArray count] > 0) {
+        self.branchList = filteredArray;
+        [self.expandedCells removeAllObjects];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    if ([self.tableView numberOfRowsInSection:0] != [self.branchListCopy count]) {
+        self.branchList = self.branchListCopy;
+        [self.expandedCells removeAllObjects];
+        [self.tableView reloadData];
+    }
+}
 @end

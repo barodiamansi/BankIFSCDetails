@@ -10,6 +10,6 @@
 #import "ServiceAPI.h"
 
 // Displays a list of states.
-@interface StateListController : UITableViewController
+@interface StateListController : UITableViewController<UISearchBarDelegate>
 @end
 

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ServiceAPI.h"
 
-@interface DistrictBanksListController : UITableViewController<ServiceAPIDelegate>
+@interface DistrictBanksListController : UITableViewController<ServiceAPIDelegate, UISearchBarDelegate>
 - (id) initWithDistrict:(NSString *)districtName;
 @end

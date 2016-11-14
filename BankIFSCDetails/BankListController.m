@@ -14,8 +14,12 @@
 @interface BankListController()
 
 @property (nonatomic, strong) NSArray *banksList;
+@property (nonatomic, strong) NSArray *banksListCopy;
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, copy) NSString *searchText;
+@property (nonatomic, strong) NSTimer *delayTimer;
 @end
 
 @implementation BankListController
@@ -24,6 +28,11 @@
     [super viewDidLoad];
     self.serviceAPI = [[ServiceAPI alloc] init];
     self.banksList = @[];
+    
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    self.tableView.tableHeaderView = self.searchBar;
+    self.searchBar.delegate = self;
+    
     [self getBanksList];
     
     self.title = @"Banks List";
@@ -81,6 +90,7 @@
     
     NSArray *responseValues = [response allValues];
     self.banksList = responseValues[1];
+    self.banksListCopy = [self.banksList copy];
     [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
@@ -97,6 +107,46 @@
     [serviceRequest setHTTPMethod:@"GET"];
     self.serviceAPI.delegate = self;
     [self.serviceAPI httpServiceRequest:serviceRequest];
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.searchText = searchBar.text;
+    
+    if ([self.searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        [searchBar resignFirstResponder];
+        [self searchResultsUpdate];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self.delayTimer invalidate];
+    
+    if ([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        self.searchText = searchText;
+        self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(searchResultsUpdate) userInfo:searchText repeats:NO];
+    }
+    else if (([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) && ([self.tableView numberOfRowsInSection:0] != [self.banksListCopy count])){
+        self.banksList = self.banksListCopy;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchResultsUpdate {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", self.searchText];
+    NSArray *filteredArray = [self.banksList filteredArrayUsingPredicate:predicate];
+    if ([filteredArray count] > 0) {
+        self.banksList = filteredArray;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    if ([self.tableView numberOfRowsInSection:0] != [self.banksListCopy count]) {
+        self.banksList = self.banksListCopy;
+        [self.tableView reloadData];
+    }
 }
 
 @end

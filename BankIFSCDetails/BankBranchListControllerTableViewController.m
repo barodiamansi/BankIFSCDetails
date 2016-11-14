@@ -14,10 +14,15 @@
 @interface BankBranchListControllerTableViewController ()
 @property (nonatomic, copy) NSString *bankName;
 @property (nonatomic, strong) NSArray *branchList;
+@property (nonatomic, strong) NSArray *branchListCopy;
 @property (nonatomic, strong) NSArray *districtBanksList;
 @property (nonatomic, strong) NSMutableArray *expandedCells;
 @property (nonatomic, strong) NSMutableArray *branchDetails;
+@property (nonatomic, strong) NSMutableArray *branchDetailsCopy;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, copy) NSString *searchText;
+@property (nonatomic, strong) NSTimer *delayTimer;
 @end
 
 @implementation BankBranchListControllerTableViewController
@@ -43,11 +48,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    self.tableView.tableHeaderView = self.searchBar;
+    self.searchBar.delegate = self;
+    
     NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"self.BANK contains %@", self.bankName];
     self.districtBanksList = [self.districtBanksList filteredArrayUsingPredicate:bPredicate];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     self.branchList = [[self.districtBanksList valueForKey:@"BRANCH"] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    self.branchListCopy = [self.branchList copy];
     
     for (NSDictionary *branch in self.districtBanksList) {
         BranchDetails *branchDetails = [[BranchDetails alloc] init];
@@ -60,6 +71,7 @@
         [self.branchDetails addObject:branchDetails];
     }
     
+    self.branchDetailsCopy = [self.branchDetails copy];
     self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details List"];
     
     [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
@@ -135,4 +147,60 @@
     cell.IFSCCode.text = branchDetails.IFSCCode;
     cell.MICRCode.text = branchDetails.MICRCode;
 }
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.searchText = searchBar.text;
+    
+    if ([self.searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        [searchBar resignFirstResponder];
+        [self searchResultsUpdate];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self.delayTimer invalidate];
+    
+    if ([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
+        self.searchText = searchText;
+        self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(searchResultsUpdate) userInfo:searchText repeats:NO];
+    }
+    else if (([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) && ([self.tableView numberOfRowsInSection:0] != [self.branchListCopy count])){
+        self.branchList = self.branchListCopy;
+        self.branchDetails = [self.branchDetailsCopy mutableCopy];
+        [self.expandedCells removeAllObjects];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchResultsUpdate {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", self.searchText];
+    NSMutableArray *filteredArray = [[self.branchList filteredArrayUsingPredicate:predicate] mutableCopy];
+    if ([filteredArray count] > 0) {
+        self.branchList = filteredArray;
+        [self.branchDetails removeAllObjects];
+        [self.expandedCells removeAllObjects];
+        NSMutableOrderedSet *branchDetails = [[NSMutableOrderedSet alloc] init];
+        for (NSString *branchName in self.branchList) {
+            for (BranchDetails *details in self.branchDetailsCopy) {
+                if ([details.branchName isEqual:branchName]) {
+                    [branchDetails addObject:details];
+                }
+            }
+        }
+        self.branchDetails = [[branchDetails array] mutableCopy];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    if ([self.tableView numberOfRowsInSection:0] != [self.branchListCopy count]) {
+        self.branchList = self.branchListCopy;
+        self.branchDetails = self.branchDetailsCopy;
+        [self.expandedCells removeAllObjects];
+        [self.tableView reloadData];
+    }
+}
+
 @end
