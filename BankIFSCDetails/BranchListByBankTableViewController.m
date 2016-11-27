@@ -91,7 +91,23 @@
         stateListCell = [tableView dequeueReusableCellWithIdentifier:stateListCellId];
     }
     
-    //[stateListCell layoutIfNeeded];
+    UIImage *image = [[UIImage alloc] init];
+    
+    if ([self.expandedCells containsObject:indexPath]) {
+        image = [UIImage imageNamed:@"Collapse Arrow.png"];
+    }
+    else {
+        image = [UIImage imageNamed:@"Expand Arrow.png"];
+    }
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+    button.frame = frame;
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    button.backgroundColor = [UIColor clearColor];
+    stateListCell.accessoryView = button;
+    
     return stateListCell;
 }
 
@@ -114,6 +130,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(BranchDetailsTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
     [self setUpBranchName:cell onRow:[indexPath row]];
     [self setUpBranchDetails:cell onRow:[indexPath row]];
 }
@@ -174,6 +191,7 @@
     cell.branchName.numberOfLines = 0;
     cell.branchName.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.branchName.text = [self.branchList objectAtIndex:row];
+    [cell.branchName sizeToFit];
 }
 
 - (void)setUpBranchDetails:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
@@ -181,6 +199,7 @@
     cell.addressDetails.numberOfLines = 0;
     cell.addressDetails.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.addressDetails.text = self.branchDetails.addressDetails;
+    [cell.addressDetails sizeToFit];
     
     cell.contactDetails.text = self.branchDetails.contactDetails;
     cell.IFSCCode.text = self.branchDetails.IFSCCode;

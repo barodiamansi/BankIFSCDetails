@@ -106,12 +106,30 @@
         branchListCell = [tableView dequeueReusableCellWithIdentifier:branchListCellId];
     }
     
+    branchListCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    branchListCell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
+    
+    UIImage *image = [[UIImage alloc] init];
+    
+    if ([self.expandedCells containsObject:indexPath]) {
+        image = [UIImage imageNamed:@"Collapse Arrow.png"];
+    }
+    else {
+        image = [UIImage imageNamed:@"Expand Arrow.png"];
+    }
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+    button.frame = frame;
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    button.backgroundColor = [UIColor clearColor];
+    branchListCell.accessoryView = button;
+
     return branchListCell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(BranchDetailsTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
     [self setUpBranchName:cell onRow:[indexPath row]];
     [self setUpBranchDetails:cell onRow:[indexPath row]];
 }
@@ -124,8 +142,10 @@
         [self.expandedCells addObject:indexPath];
     }
     
-    [tableView beginUpdates];
-    [tableView endUpdates];
+    [tableView reloadData];
+    
+//    [tableView beginUpdates];
+//    [tableView endUpdates];
 }
 
 - (void)setUpBranchName:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
@@ -133,6 +153,7 @@
     cell.branchName.numberOfLines = 0;
     cell.branchName.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.branchName.text = ((BranchDetails *)[self.branchDetails objectAtIndex:row]).branchName;
+    [cell.branchName sizeToFit];
 }
 
 - (void)setUpBranchDetails:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
@@ -142,6 +163,7 @@
     cell.addressDetails.numberOfLines = 0;
     cell.addressDetails.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.addressDetails.text = branchDetails.addressDetails;
+    [cell.addressDetails sizeToFit];
     
     cell.contactDetails.text = branchDetails.contactDetails;
     cell.IFSCCode.text = branchDetails.IFSCCode;

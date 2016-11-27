@@ -10,4 +10,23 @@
 
 @implementation BranchDetailsTableViewCell
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.branchName.numberOfLines = 0;
+    [self.branchName sizeToFit];
+    
+    self.addressDetails.numberOfLines = 0;
+    [self.addressDetails sizeToFit];
+    
+    self.contactDetails.numberOfLines = 0;
+    [self.contactDetails sizeToFit];
+    
+    self.IFSCCode.numberOfLines = 0;
+    [self.IFSCCode sizeToFit];
+    
+    self.MICRCode.numberOfLines = 0;
+    [self.MICRCode sizeToFit];
+}
+
 @end

@@ -24,6 +24,9 @@ static void * OverlayViewKey = &OverlayViewKey;
 - (void)showActivityIndicatorForView:(UIView *)view {
     self.overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.center = self.overlayView.center;
+ //   [view setUserInteractionEnabled:YES];
+//   [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//    [self.overlayView setUserInteractionEnabled:NO];
     [self startAnimating];
     [self.overlayView addSubview:self];
     [view addSubview:self.overlayView];
@@ -35,6 +38,9 @@ static void * OverlayViewKey = &OverlayViewKey;
 
 - (void)hideActivityIndicatorForView:(UIView *)view {
     [self stopAnimating];
+//    [self.overlayView setUserInteractionEnabled:YES];
     [self.overlayView removeFromSuperview];
+//    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+ //   [view setUserInteractionEnabled:NO];
 }
 @end
