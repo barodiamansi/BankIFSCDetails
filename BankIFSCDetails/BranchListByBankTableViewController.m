@@ -72,13 +72,30 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellText = [self.branchList objectAtIndex:[indexPath row]];
-    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+    CGSize labelSize;
     
-    CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+    if ([self.expandedCells containsObject:indexPath]) {
+        // Calculate the cell height based on the address details or branch name which ever is greater.
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        
+        NSString *addressText = self.branchDetails.addressDetails;
+        CGSize addressLabelSize = [addressText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        NSString *branchNameText = self.branchDetails.branchName;
+        CGSize branchLabelSize = [branchNameText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        labelSize = (addressLabelSize.height > branchLabelSize.height) ? addressLabelSize : branchLabelSize;
+    }
+    else {
+        NSString *cellText = [self.branchList objectAtIndex:[indexPath row]];
+        
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        
+        labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+    }
     
     CGFloat cellHeight = labelSize.height + 20;
-    return [self.expandedCells containsObject:indexPath] ? cellHeight * 5 : cellHeight;
+    return [self.expandedCells containsObject:indexPath] ? cellHeight * 4 : cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
