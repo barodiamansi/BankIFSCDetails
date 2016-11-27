@@ -88,12 +88,26 @@
     
     districtListCell.textLabel.text = [self.districtList objectAtIndex:[indexPath row]];
     
+    UIImage *image = [UIImage imageNamed:@"Forward.png"];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+    button.frame = frame;
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    button.backgroundColor = [UIColor clearColor];
+    districtListCell.accessoryView = button;
+    
     return districtListCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DistrictBanksListController *districtBankListController = [[DistrictBanksListController alloc] initWithDistrict:[self.districtList objectAtIndex:[indexPath row]]];
     [self.navigationController pushViewController:districtBankListController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+        cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
 }
 
 - (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {

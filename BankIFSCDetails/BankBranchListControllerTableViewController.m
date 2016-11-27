@@ -87,13 +87,30 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellText = [self.branchList objectAtIndex:[indexPath row]];
-    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
-    
-    CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+    CGSize labelSize;
+
+    if ([self.expandedCells containsObject:indexPath]) {
+        // Calculate the cell height based on the address details or branch name which ever is greater.
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        BranchDetails *branchDetail = ((BranchDetails *)[self.branchDetails objectAtIndex:[indexPath row]]);
+        
+        NSString *addressText = branchDetail.addressDetails;
+        CGSize addressLabelSize = [addressText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        NSString *branchNameText = branchDetail.branchName;
+        CGSize branchLabelSize = [branchNameText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        labelSize = (addressLabelSize.height > branchLabelSize.height) ? addressLabelSize : branchLabelSize;
+    }
+    else {
+        NSString *cellText = [self.branchList objectAtIndex:[indexPath row]];
+        UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+        
+        labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+    }
     
     CGFloat cellHeight = labelSize.height + 20;
-    return [self.expandedCells containsObject:indexPath] ? cellHeight * 5 : cellHeight;
+    return [self.expandedCells containsObject:indexPath] ? cellHeight * 4 : cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,12 +123,30 @@
         branchListCell = [tableView dequeueReusableCellWithIdentifier:branchListCellId];
     }
     
+    branchListCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    branchListCell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
+    
+    UIImage *image = [[UIImage alloc] init];
+    
+    if ([self.expandedCells containsObject:indexPath]) {
+        image = [UIImage imageNamed:@"Collapse Arrow.png"];
+    }
+    else {
+        image = [UIImage imageNamed:@"Expand Arrow.png"];
+    }
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+    button.frame = frame;
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    button.backgroundColor = [UIColor clearColor];
+    branchListCell.accessoryView = button;
+
     return branchListCell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(BranchDetailsTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
     [self setUpBranchName:cell onRow:[indexPath row]];
     [self setUpBranchDetails:cell onRow:[indexPath row]];
 }
@@ -124,8 +159,7 @@
         [self.expandedCells addObject:indexPath];
     }
     
-    [tableView beginUpdates];
-    [tableView endUpdates];
+    [tableView reloadData];
 }
 
 - (void)setUpBranchName:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
@@ -133,6 +167,7 @@
     cell.branchName.numberOfLines = 0;
     cell.branchName.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.branchName.text = ((BranchDetails *)[self.branchDetails objectAtIndex:row]).branchName;
+    [cell.branchName sizeToFit];
 }
 
 - (void)setUpBranchDetails:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
@@ -142,8 +177,12 @@
     cell.addressDetails.numberOfLines = 0;
     cell.addressDetails.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.addressDetails.text = branchDetails.addressDetails;
+    [cell.addressDetails sizeToFit];
     
+    cell.contactDetails.numberOfLines = 0;
     cell.contactDetails.text = branchDetails.contactDetails;
+    [cell.contactDetails sizeToFit];
+    
     cell.IFSCCode.text = branchDetails.IFSCCode;
     cell.MICRCode.text = branchDetails.MICRCode;
 }

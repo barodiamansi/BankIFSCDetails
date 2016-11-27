@@ -86,6 +86,16 @@
     // Display states list on cell.
     statesListCell.textLabel.text = [self.statesList objectAtIndex:[indexPath row]];
     
+    UIImage *image = [UIImage imageNamed:@"Forward.png"];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+    button.frame = frame;
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    button.backgroundColor = [UIColor clearColor];
+    statesListCell.accessoryView = button;
+    
     return statesListCell;
 }
 
@@ -93,6 +103,10 @@
     // Display district list when click on a state name.
     DistrictListController *districtListController = [[DistrictListController alloc] initWithState:[self.statesList objectAtIndex:[indexPath row]]];
     [self.navigationController pushViewController:districtListController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
 }
 
 #pragma mark - UISearchBarDelegate
