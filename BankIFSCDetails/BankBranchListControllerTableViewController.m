@@ -72,7 +72,7 @@
     }
     
     self.branchDetailsCopy = [self.branchDetails copy];
-    self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details List"];
+    self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details"];
     
     [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }

@@ -120,10 +120,9 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     self.districtList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     self.districtListCopy = [self.districtList copy];
- 
-    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
 
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
         [self.tableView reloadData];
     });
 }

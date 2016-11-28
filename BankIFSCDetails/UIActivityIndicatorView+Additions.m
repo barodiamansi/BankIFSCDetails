@@ -9,7 +9,7 @@
 #import "UIActivityIndicatorView+Additions.h"
 #import <objc/runtime.h>
 
-static void * OverlayViewKey = &OverlayViewKey;
+static void *OverlayViewKey = &OverlayViewKey;
 
 @implementation UIActivityIndicatorView(Additions)
 
@@ -24,23 +24,20 @@ static void * OverlayViewKey = &OverlayViewKey;
 - (void)showActivityIndicatorForView:(UIView *)view {
     self.overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.center = self.overlayView.center;
- //   [view setUserInteractionEnabled:YES];
-//   [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-//    [self.overlayView setUserInteractionEnabled:NO];
     [self startAnimating];
     [self.overlayView addSubview:self];
     [view addSubview:self.overlayView];
     [view bringSubviewToFront:self.overlayView];
     self.hidesWhenStopped = YES;
     self.hidden = NO;
-    
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [self.overlayView setUserInteractionEnabled:NO];
 }
 
 - (void)hideActivityIndicatorForView:(UIView *)view {
     [self stopAnimating];
-//    [self.overlayView setUserInteractionEnabled:YES];
+    [self.overlayView setUserInteractionEnabled:YES];
     [self.overlayView removeFromSuperview];
-//    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
- //   [view setUserInteractionEnabled:NO];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 @end

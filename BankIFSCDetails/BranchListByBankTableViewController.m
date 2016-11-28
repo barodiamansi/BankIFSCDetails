@@ -165,16 +165,15 @@
         self.branchDetails.MICRCode = [branchDetails valueForKey:@"MICR CODE"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
             [self.tableView reloadData];
         });
-        
-        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     }
     else {
         self.branchList = [response allValues][1];
         self.branchListCopy = [self.branchList mutableCopy];
-        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
             [self.tableView reloadData];
         });
     }

@@ -131,8 +131,9 @@
     
     [self.branchDetails addObject:details];
     [self.branchDetailsTableView setHidden:NO];
-    [self.activityIndicator hideActivityIndicatorForView:self.view];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator hideActivityIndicatorForView:self.view];
         [self.branchDetailsTableView reloadData];
     });
 }
