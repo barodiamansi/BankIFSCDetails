@@ -16,11 +16,18 @@
 - (void)setUpBranchName:(BranchDetailsTableViewCell *)cell onRow:(NSInteger)row;
 - (void)setUpBranchDetails:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row;
 @property (nonatomic) NSMutableArray *branchDetails;
+
+@property (nonatomic, copy) NSString *bankName;
+@property (nonatomic) NSArray *branchList;
+@property (nonatomic) NSArray *districtBanksList;
+@property (nonatomic) NSMutableArray *expandedCells;
+@property (nonatomic) UIActivityIndicatorView *activityIndicator;
 @end
 
 @interface BankBranchListControllerTableViewControllerTest : XCTestCase
 @property (nonatomic) BankBranchListControllerTableViewController *vcToTest;
 @property (nonatomic) BranchDetailsTableViewCell *testCell;
+@property (nonatomic) NSArray *bankArray;
 @end
 
 @implementation BankBranchListControllerTableViewControllerTest
@@ -28,9 +35,9 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    NSArray *bankArray = @[@"Test Bank", @"Super Bank", @"World Bank"];
+    self.bankArray = @[@"Test Bank", @"Super Bank", @"World Bank"];
     NSString *testCellId = @"testCell";
-    self.vcToTest = [[BankBranchListControllerTableViewController alloc] initWithBank:@"Test Bank" andBanksList:bankArray];
+    self.vcToTest = [[BankBranchListControllerTableViewController alloc] initWithBank:@"Test Bank" andBanksList:self.bankArray];
     
     self.vcToTest.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 150, 50) style:UITableViewStylePlain];
     
@@ -59,9 +66,35 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testInit {
+    XCTAssertEqualObjects(@"Test Bank", self.vcToTest.bankName, @"The bank name did not match the expected bank name");
+    XCTAssertEqual(self.bankArray, self.vcToTest.districtBanksList, @"The district banks list did not match the expected banks list");
+    XCTAssertNotNil(self.vcToTest.expandedCells);
+    XCTAssertNotNil(self.vcToTest.branchDetails);
+    XCTAssertNotNil(self.vcToTest.activityIndicator);
+}
+
+- (void)testNumberOfSectionsInTableView {
+    NSInteger numberOfSections = [self.vcToTest numberOfSectionsInTableView:self.vcToTest.tableView];
+    XCTAssertEqual(1, numberOfSections, @"The number of sections should match");
+}
+
+- (void)testNumberOfRowsInSection {
+    self.vcToTest.branchList = @[@"BranchA", @"BranchB", @"BranchC"];
+    NSInteger numberOfRows = [self.vcToTest tableView:self.vcToTest.tableView numberOfRowsInSection:0];
+    XCTAssertEqual(3, numberOfRows, @"The number of rows should match");
+}
+
+- (void)testTableViewWillDisplayCell {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    
+    id mockController = [OCMockObject partialMockForObject:self.vcToTest];
+    [[mockController expect] setUpBranchName:self.testCell onRow:[indexPath row]];
+    [[mockController expect] setUpBranchDetails:self.testCell onRow:[indexPath row]];
+    
+    [self.vcToTest tableView:self.vcToTest.tableView willDisplayCell:self.testCell forRowAtIndexPath:indexPath];
+    
+    [mockController verify];
 }
 
 - (void)testSetUpBranchName {
