@@ -15,14 +15,20 @@
 
 // Used in the request for district names list.
 @property (nonatomic, copy) NSString *stateName;
-// Stores the list of district names received from the response.
+// Stores the list of district names received from the response. This array gets modified based on
+// the search bar results.
 @property (nonatomic, strong) NSArray *districtList;
+// Stores the list of district names received from the original response.
 @property (nonatomic, strong) NSArray *districtListCopy;
 // Used to make service calls.
 @property (nonatomic, strong) ServiceAPI *serviceAPI;
+// Displays activity indicator on the view.
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+// Used to filter the results from the district list.
 @property (nonatomic, strong) UISearchBar *searchBar;
+// Text entered for searching within the list.
 @property (nonatomic, copy) NSString *searchText;
+// Timer to start the search.
 @property (nonatomic, strong) NSTimer *delayTimer;
 @end
 

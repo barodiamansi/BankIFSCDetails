@@ -22,6 +22,7 @@ static void *OverlayViewKey = &OverlayViewKey;
 }
 
 - (void)showActivityIndicatorForView:(UIView *)view {
+    // Configure and add blur view behind the activity indicator.
     self.overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.overlayView.frame = view.bounds;
     self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleHeight;

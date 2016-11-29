@@ -29,6 +29,7 @@ const int NUM_ROWS_PICKER_COMPONENTS = 4;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    // Options to show in the picker view. 
     self.optionsArray = @[@"Search by Bank", @"Search by State", @"Search by IFSC Code", @"Search by MICR Code"];
     
     self.optionsPicker = [[UIPickerView alloc] init];
