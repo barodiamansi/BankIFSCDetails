@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "71AF2C11CD6FFD5BACD6D12D37716B1191BA8B66",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4182765C525509B305166AB949D5935FD5C85212" : 9223372036854775807,
+    "E4BCE3AE6B24E41B9BCE312FF3B0B6CD0B8B8025" : 9223372036854775807,
+    "71AF2C11CD6FFD5BACD6D12D37716B1191BA8B66" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1A32BFE9-9601-408F-8CB4-48C61209E9BE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4182765C525509B305166AB949D5935FD5C85212" : "BankIFSCDetails\/ActivityIndicatorLibrary\/",
+    "E4BCE3AE6B24E41B9BCE312FF3B0B6CD0B8B8025" : "..\/ocmock",
+    "71AF2C11CD6FFD5BACD6D12D37716B1191BA8B66" : "BankIFSCDetails\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "BankIFSCDetails",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "BankIFSCDetails.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jdg\/MBProgressHUD",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4182765C525509B305166AB949D5935FD5C85212"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/barodiamansi\/BankIFSCDetails.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "71AF2C11CD6FFD5BACD6D12D37716B1191BA8B66"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/erikdoe\/ocmock",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4BCE3AE6B24E41B9BCE312FF3B0B6CD0B8B8025"
+    }
+  ]
+}

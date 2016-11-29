@@ -131,7 +131,7 @@
     branchListCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     branchListCell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
     
-    UIImage *image = [[UIImage alloc] init];
+    UIImage *image;
     
     if ([self.expandedCells containsObject:indexPath]) {
         image = [UIImage imageNamed:@"Collapse Arrow.png"];

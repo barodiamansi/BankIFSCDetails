@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75038D211DEDCF5400172B21 /* BankBranchListControllerTableViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 75038D201DEDCF5400172B21 /* BankBranchListControllerTableViewControllerTest.m */; };
 		75486B841DD41CA300EF5959 /* BranchListByBankTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */; };
 		75486B881DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 75486B871DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.m */; };
 		75486B8C1DDACFC600EF5959 /* Collapse Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 75486B891DDACFC600EF5959 /* Collapse Arrow.png */; };
@@ -25,6 +26,8 @@
 		758395C31DBDAA04007BFCF7 /* DistrictListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C21DBDAA04007BFCF7 /* DistrictListController.m */; };
 		758395C61DBDAA38007BFCF7 /* BankListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C51DBDAA38007BFCF7 /* BankListController.m */; };
 		758395C91DC02B04007BFCF7 /* ServiceAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 758395C81DC02B04007BFCF7 /* ServiceAPI.m */; };
+		75942C221DEE09AA00F86D1D /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75942C201DEE09AA00F86D1D /* libOCMock.a */; };
+		75942C231DEE09AA00F86D1D /* OCMock in Resources */ = {isa = PBXBuildFile; fileRef = 75942C211DEE09AA00F86D1D /* OCMock */; };
 		75AC82981DCC205500DFC65D /* BranchDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75AC82971DCC205500DFC65D /* BranchDetailsTableViewCell.xib */; };
 		75AC829B1DCC351D00DFC65D /* BranchDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AC829A1DCC351D00DFC65D /* BranchDetailsTableViewCell.m */; };
 		75B7D1C91DC4601300DCB806 /* DistrictBanksListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B7D1C81DC4601300DCB806 /* DistrictBanksListController.m */; };
@@ -52,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		75038D201DEDCF5400172B21 /* BankBranchListControllerTableViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankBranchListControllerTableViewControllerTest.m; sourceTree = "<group>"; };
 		75486B821DD41CA300EF5959 /* BranchListByBankTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchListByBankTableViewController.h; sourceTree = "<group>"; };
 		75486B831DD41CA300EF5959 /* BranchListByBankTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchListByBankTableViewController.m; sourceTree = "<group>"; };
 		75486B861DD7EC7400EF5959 /* UIActivityIndicatorView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+Additions.h"; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		758395C51DBDAA38007BFCF7 /* BankListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankListController.m; sourceTree = "<group>"; };
 		758395C71DC02AEE007BFCF7 /* ServiceAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceAPI.h; sourceTree = "<group>"; };
 		758395C81DC02B04007BFCF7 /* ServiceAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceAPI.m; sourceTree = "<group>"; };
+		75942C201DEE09AA00F86D1D /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		75942C211DEE09AA00F86D1D /* OCMock */ = {isa = PBXFileReference; lastKnownFileType = folder; path = OCMock; sourceTree = "<group>"; };
 		75AC82971DCC205500DFC65D /* BranchDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BranchDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		75AC82991DCC351D00DFC65D /* BranchDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchDetailsTableViewCell.h; sourceTree = "<group>"; };
 		75AC829A1DCC351D00DFC65D /* BranchDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchDetailsTableViewCell.m; sourceTree = "<group>"; };
@@ -111,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75942C221DEE09AA00F86D1D /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +131,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75038D3A1DEDE06400172B21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75038D3E1DEDF36000172B21 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				75942C201DEE09AA00F86D1D /* libOCMock.a */,
+				75942C211DEE09AA00F86D1D /* OCMock */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		75486B851DD7EC2D00EF5959 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,10 +159,12 @@
 		758395541DBD6B60007BFCF7 = {
 			isa = PBXGroup;
 			children = (
+				75038D3E1DEDF36000172B21 /* Libraries */,
 				7583955F1DBD6B60007BFCF7 /* BankIFSCDetails */,
 				758395791DBD6B61007BFCF7 /* BankIFSCDetailsTests */,
 				758395841DBD6B61007BFCF7 /* BankIFSCDetailsUITests */,
 				7583955E1DBD6B60007BFCF7 /* Products */,
+				75038D3A1DEDE06400172B21 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +215,7 @@
 			children = (
 				7583957A1DBD6B61007BFCF7 /* BankIFSCDetailsTests.m */,
 				7583957C1DBD6B61007BFCF7 /* Info.plist */,
+				75038D201DEDCF5400172B21 /* BankBranchListControllerTableViewControllerTest.m */,
 			);
 			path = BankIFSCDetailsTests;
 			sourceTree = "<group>";
@@ -368,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75942C231DEE09AA00F86D1D /* OCMock in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7583957B1DBD6B61007BFCF7 /* BankIFSCDetailsTests.m in Sources */,
+				75038D211DEDCF5400172B21 /* BankBranchListControllerTableViewControllerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,8 +576,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = /Users/mansibarodia/iOS/BankIFSCDetails;
+				HEADER_SEARCH_PATHS = /Users/mansibarodia/iOS/BankIFSCDetails/Libraries/OCMock;
 				INFOPLIST_FILE = BankIFSCDetails/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mansibarodia.BankIFSCDetails;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -559,8 +590,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = /Users/mansibarodia/iOS/BankIFSCDetails;
+				HEADER_SEARCH_PATHS = /Users/mansibarodia/iOS/BankIFSCDetails/Libraries/OCMock;
 				INFOPLIST_FILE = BankIFSCDetails/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mansibarodia.BankIFSCDetails;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -570,8 +604,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = "";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "\"/Users/mansibarodia/iOS/BankIFSCDetails\"";
+				HEADER_SEARCH_PATHS = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "\"/Users/mansibarodia/iOS/BankIFSCDetails\"";
 				INFOPLIST_FILE = BankIFSCDetailsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)\"";
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = mansibarodia.BankIFSCDetailsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BankIFSCDetails.app/BankIFSCDetails";
@@ -582,8 +624,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = "";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "\"/Users/mansibarodia/iOS/BankIFSCDetails\"";
+				HEADER_SEARCH_PATHS = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "\"/Users/mansibarodia/iOS/BankIFSCDetails\"";
 				INFOPLIST_FILE = BankIFSCDetailsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)\"";
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = mansibarodia.BankIFSCDetailsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BankIFSCDetails.app/BankIFSCDetails";

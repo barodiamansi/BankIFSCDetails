@@ -37,6 +37,7 @@
     self.statesList = [[[StatesListObject alloc] init] statesList];
     self.statesListCopy = [self.statesList copy];
     
+    // Adding search bar to the view.
     self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
     self.tableView.tableHeaderView = self.searchBar;
     self.searchBar.delegate = self;
@@ -44,6 +45,7 @@
     // Title of the view.
     self.title = @"States & Union Territories List";
     
+    // Adding and displaying activity indicator.
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicator.overlayView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -86,6 +88,7 @@
     // Display states list on cell.
     statesListCell.textLabel.text = [self.statesList objectAtIndex:[indexPath row]];
     
+    // Adding custom chevron to the cell.
     UIImage *image = [UIImage imageNamed:@"Forward.png"];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,6 +117,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     self.searchText = searchBar.text;
     
+    // Start the search only after the characters entered on the search bar are 3 or more.
     if ([self.searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
         [searchBar resignFirstResponder];
         [self searchResultsUpdate];
@@ -123,10 +127,12 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self.delayTimer invalidate];
     
+    // Start the search only after the characters entered on the search bar are 3 or more.
     if ([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length >= 3) {
         self.searchText = searchText;
         self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(searchResultsUpdate) userInfo:searchText repeats:NO];
     }
+    // Clear the data from the tableview if the search text is removed.
     else if (([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) && ([self.tableView numberOfRowsInSection:0] != [self.statesListCopy count])){
         self.statesList = self.statesListCopy;
         [self.tableView reloadData];
@@ -134,6 +140,7 @@
 }
 
 - (void)searchResultsUpdate {
+    // Filter the array based on search results to only display search results.
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", self.searchText];
     NSArray *filteredArray = [self.statesList filteredArrayUsingPredicate:predicate];
     if ([filteredArray count] > 0) {
