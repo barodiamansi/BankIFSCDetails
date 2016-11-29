@@ -23,6 +23,8 @@ static void *OverlayViewKey = &OverlayViewKey;
 
 - (void)showActivityIndicatorForView:(UIView *)view {
     self.overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    self.overlayView.frame = view.bounds;
+    self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleHeight;
     self.center = self.overlayView.center;
     [self startAnimating];
     [self.overlayView addSubview:self];
