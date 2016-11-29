@@ -118,8 +118,8 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     self.bankNamesList = [[orderedSet array] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     self.bankNamesListCopy = [self.bankNamesList copy];
-    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
         [self.tableView reloadData];
     });
 }

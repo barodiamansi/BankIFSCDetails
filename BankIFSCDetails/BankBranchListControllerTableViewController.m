@@ -72,7 +72,7 @@
     }
     
     self.branchDetailsCopy = [self.branchDetails copy];
-    self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details List"];
+    self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details"];
     
     [self.activityIndicator showActivityIndicatorForView:self.navigationController.view];
 }
@@ -87,30 +87,35 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize labelSize;
+    CGFloat labelHeight;
 
     if ([self.expandedCells containsObject:indexPath]) {
-        // Calculate the cell height based on the address details or branch name which ever is greater.
+        // Calculate the cell height based on the height of all the detail labels.
         UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
         BranchDetails *branchDetail = ((BranchDetails *)[self.branchDetails objectAtIndex:[indexPath row]]);
         
-        NSString *addressText = branchDetail.addressDetails;
-        CGSize addressLabelSize = [addressText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        CGSize addressLabelSize = [branchDetail.addressDetails boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
         
-        NSString *branchNameText = branchDetail.branchName;
-        CGSize branchLabelSize = [branchNameText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        CGSize branchLabelSize = [branchDetail.branchName boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
         
-        labelSize = (addressLabelSize.height > branchLabelSize.height) ? addressLabelSize : branchLabelSize;
+        CGSize contactLabelSize = [branchDetail.contactDetails boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        CGSize IFSCLabelSize = [branchDetail.IFSCCode boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        CGSize MICRLabelSize = [branchDetail.MICRCode boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        labelHeight = addressLabelSize.height + branchLabelSize.height + contactLabelSize.height + IFSCLabelSize.height + MICRLabelSize.height;
     }
     else {
         NSString *cellText = [self.branchList objectAtIndex:[indexPath row]];
         UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
         
-        labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        labelHeight = labelSize.height;
     }
     
-    CGFloat cellHeight = labelSize.height + 20;
-    return [self.expandedCells containsObject:indexPath] ? cellHeight * 4 : cellHeight;
+    CGFloat cellHeight = labelHeight + 22;
+    return [self.expandedCells containsObject:indexPath] ? cellHeight * 2 : cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -142,7 +147,7 @@
     
     button.backgroundColor = [UIColor clearColor];
     branchListCell.accessoryView = button;
-
+    
     return branchListCell;
 }
 

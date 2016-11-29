@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, copy) NSString *searchText;
 @property (nonatomic, strong) NSTimer *delayTimer;
+@property (nonatomic, strong) NSMutableArray *branchDetailsList;
 @end
 
 @implementation BranchListByBankTableViewController
@@ -34,6 +35,7 @@
     if (self) {
         self.branchList = [[NSMutableArray alloc] init];
         self.expandedCells = [[NSMutableArray alloc] init];
+        self.branchDetailsList = [[NSMutableArray alloc] init];
         self.branchDetails = [[BranchDetails alloc] init];
         self.bankName = bankName;
         self.getBranchDetails = NO;
@@ -56,9 +58,8 @@
     self.tableView.tableHeaderView = self.searchBar;
     self.searchBar.delegate = self;
     [self getBranchList];
-    self.title = @"Branch List";
+    self.title = [NSString stringWithFormat:@"%@%@%@", self.bankName, @" - ", @"Branch Details"];
 }
-
 
 #pragma mark - Table view data source
 
@@ -72,30 +73,38 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize labelSize;
+    CGFloat labelHeight;
     
-    if ([self.expandedCells containsObject:indexPath]) {
-        // Calculate the cell height based on the address details or branch name which ever is greater.
+    if ([self.expandedCells containsObject:indexPath] && (![[self.branchDetailsList objectAtIndex:[indexPath row]] isEqual:[NSNull null]])) {
+        
+        BranchDetails *branchDetails = self.branchDetailsList[[indexPath row]];
+        
+        // Calculate the cell height based on the height of all the detail labels.
         UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
         
-        NSString *addressText = self.branchDetails.addressDetails;
-        CGSize addressLabelSize = [addressText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        CGSize addressLabelSize = [branchDetails.addressDetails boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
         
-        NSString *branchNameText = self.branchDetails.branchName;
-        CGSize branchLabelSize = [branchNameText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        CGSize branchLabelSize = [branchDetails.branchName boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
         
-        labelSize = (addressLabelSize.height > branchLabelSize.height) ? addressLabelSize : branchLabelSize;
+        CGSize contactLabelSize = [branchDetails.contactDetails boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        CGSize IFSCLabelSize = [branchDetails.IFSCCode boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        CGSize MICRLabelSize = [branchDetails.MICRCode boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        
+        labelHeight = addressLabelSize.height + branchLabelSize.height + contactLabelSize.height + IFSCLabelSize.height + MICRLabelSize.height;
     }
     else {
         NSString *cellText = [self.branchList objectAtIndex:[indexPath row]];
         
         UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
         
-        labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        CGSize labelSize = [cellText boundingRectWithSize:CGSizeMake(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:nil].size;
+        labelHeight = labelSize.height;
     }
     
-    CGFloat cellHeight = labelSize.height + 20;
-    return [self.expandedCells containsObject:indexPath] ? cellHeight * 4 : cellHeight;
+    CGFloat cellHeight = labelHeight + 22;
+    return [self.expandedCells containsObject:indexPath] ? cellHeight * 2 : cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -124,7 +133,7 @@
     
     button.backgroundColor = [UIColor clearColor];
     stateListCell.accessoryView = button;
-    
+
     return stateListCell;
 }
 
@@ -149,7 +158,9 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] : [UIColor whiteColor];
     [self setUpBranchName:cell onRow:[indexPath row]];
-    [self setUpBranchDetails:cell onRow:[indexPath row]];
+    if ([self.selectedIndexPath isEqual:indexPath] && ![[self.branchDetailsList objectAtIndex:[indexPath row]] isEqual:[NSNull null]]) {
+         [self setUpBranchDetails:cell onRow:[indexPath row]];   
+    }
 }
 
 - (void)getResponseData:(NSData *)responseData sender:(ServiceAPI *)sender {
@@ -164,17 +175,21 @@
         self.branchDetails.IFSCCode = [branchDetails valueForKey:@"IFSC"];
         self.branchDetails.MICRCode = [branchDetails valueForKey:@"MICR CODE"];
         
+        [self.branchDetailsList replaceObjectAtIndex:[self.selectedIndexPath row] withObject:self.branchDetails];
+
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
             [self.tableView reloadData];
         });
-        
-        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     }
     else {
         self.branchList = [response allValues][1];
         self.branchListCopy = [self.branchList mutableCopy];
-        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
+        for (int i=0; i<[self.branchList count]; i++) {
+            [self.branchDetailsList addObject:[NSNull null]];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
             [self.tableView reloadData];
         });
     }
@@ -212,15 +227,16 @@
 }
 
 - (void)setUpBranchDetails:(BranchDetailsTableViewCell *)cell onRow:(NSInteger) row {
+    BranchDetails *branchDetails = self.branchDetailsList[row];
     cell.addressDetails.lineBreakMode = NSLineBreakByWordWrapping;
     cell.addressDetails.numberOfLines = 0;
     cell.addressDetails.font = [UIFont fontWithName:@"Helvetica" size:17.0];
-    cell.addressDetails.text = self.branchDetails.addressDetails;
+    cell.addressDetails.text = branchDetails.addressDetails;
     [cell.addressDetails sizeToFit];
     
-    cell.contactDetails.text = self.branchDetails.contactDetails;
-    cell.IFSCCode.text = self.branchDetails.IFSCCode;
-    cell.MICRCode.text = self.branchDetails.MICRCode;
+    cell.contactDetails.text = branchDetails.contactDetails;
+    cell.IFSCCode.text = branchDetails.IFSCCode;
+    cell.MICRCode.text = branchDetails.MICRCode;
 }
 
 #pragma mark - UISearchBarDelegate

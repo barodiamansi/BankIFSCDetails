@@ -105,8 +105,8 @@
     NSArray *responseValues = [response allValues];
     self.banksList = responseValues[1];
     self.banksListCopy = [self.banksList copy];
-    [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator hideActivityIndicatorForView:self.navigationController.view];
         [self.tableView reloadData];
     });
 }
